@@ -40,7 +40,7 @@ public class JdbcUserDao implements UserDao {
 
         int userId;
         try {
-            userId = jdbcTemplate.queryForObject("SELECT user_id FROM app_user WHERE username = ?", int.class, username);
+            userId = jdbcTemplate.queryForObject("SELECT user_id FROM users WHERE username = ?", int.class, username);
         } catch (EmptyResultDataAccessException e) {
             throw new UsernameNotFoundException("User " + username + " was not found.");
         }
@@ -50,13 +50,13 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public boolean userExists(String username) {
-        int userCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM app_user WHERE username = ?;", int.class, username);
+        int userCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM users WHERE username = ?;", int.class, username);
         return (userCount == 1);
     }
 
     @Override
     public User getUserById(int userId) {
-        String sql = "SELECT user_id, username, password_hash, role, display_name, img_url, short_bio FROM app_user WHERE user_id = ?";
+        String sql = "SELECT user_id, username, password_hash, first, last FROM users WHERE user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         if (results.next()) {
             return mapRowToUser(results);
