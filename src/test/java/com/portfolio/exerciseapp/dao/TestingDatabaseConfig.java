@@ -54,7 +54,7 @@ public class TestingDatabaseConfig {
         dataSource.setPassword(DB_PASSWORD);
         dataSource.setAutoCommit(false); //So we can rollback after each test.
 
-        ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("src/test/java/com/portfolio/exerciseapp/dao/testingDB/ExerciseAppTestDB.sql"));
+        ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("ExerciseAppTestDB.sql"));
 
         return dataSource;
     }
