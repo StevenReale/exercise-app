@@ -1,3 +1,5 @@
+BEGIN TRANSACTION;
+
 DROP TABLE IF EXISTS workout_list;
 DROP TABLE IF EXISTS workout_event;
 DROP TABLE IF EXISTS workout;
@@ -52,6 +54,10 @@ CREATE TABLE workout_list (
 
 INSERT INTO exercise (exercise_name)
     VALUES ('exercise 1'),  -- 1
-        ('exercise 2');     -- 2
+           ('exercise 2');  -- 2
+
+COMMIT;
+
+
 
 

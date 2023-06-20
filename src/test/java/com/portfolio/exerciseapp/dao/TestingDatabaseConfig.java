@@ -46,8 +46,12 @@ public class TestingDatabaseConfig {
         }
     }
 
+    private DataSource ds = null;
+
     @Bean
     public DataSource dataSource() throws SQLException {
+        if(ds != null) return ds;
+
         SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
         dataSource.setUrl(String.format("jdbc:postgresql://%s:%s/%s", DB_HOST, DB_PORT, DB_NAME));
         dataSource.setUsername(DB_USER);

@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = com.portfolio.exerciseapp.dao.TestingDatabaseConfig.class)
+@ContextConfiguration(classes = TestingDatabaseConfig.class)
 public abstract class BaseDaoTests {
 
     @Autowired
