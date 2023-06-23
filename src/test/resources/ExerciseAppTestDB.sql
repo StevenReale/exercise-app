@@ -28,7 +28,7 @@ CREATE TABLE workout (
 	num_reps int,
 	weight int,
 	workout_time int,
-	distance int,
+	distance numeric(4,1),
 	CONSTRAINT pk_workout PRIMARY KEY (workout_id),
 	CONSTRAINT fk_exercise_id FOREIGN KEY (exercise_id) REFERENCES exercise(exercise_id)
 );
@@ -54,10 +54,13 @@ CREATE TABLE workout_list (
 
 INSERT INTO exercise (exercise_name)
     VALUES ('exercise 1'),  -- 1
-           ('exercise 2');  -- 2
+           ('exercise 2'),  -- 2
+           ('exercise 3');  -- 3
+
+INSERT INTO workout (exercise_id, num_sets, num_reps, weight, workout_time, distance)
+    VALUES   (1, 2, 2, 2, 2, 10.5),  --1
+    	     (1, 3, 3, 3, 3, 100.2), --2
+    		 (2, 1, 1, 1, 1, 200.6), --3
+    		 (2, 3, 4, 5, 6, 7.8);   --4
 
 COMMIT;
-
-
-
-

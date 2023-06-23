@@ -52,10 +52,18 @@ public class JdbcExerciseDao implements ExerciseDAO {
     }
 
     @Override
+    public boolean updateExercise(Exercise exercise) {
+        String sql = "UPDATE exercise SET exercise_name = ?;";
+        return jdbcTemplate.update(sql, exercise.getName()) > 0;
+    }
+
+    @Override
     public void deleteExerciseById(int id) {
-        String sql = "DELETE FROM exercise " +
+        String sql = "DELETE FROM workout " +
+                "WHERE exercise_id = ?;" +
+                "DELETE FROM exercise " +
                 "WHERE exercise_id = ?;";
-        jdbcTemplate.update(sql, id);
+        jdbcTemplate.update(sql, id, id);
     }
 
     private Exercise mapRowToObject(SqlRowSet result) {
