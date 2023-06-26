@@ -7,9 +7,10 @@ DROP TABLE IF EXISTS exercise;
 CREATE TABLE users (
 	user_id serial NOT NULL,
 	username varchar(50) NOT NULL,
-	password varchar(50) NOT NULL,
+	password_hash varchar(50) NOT NULL,
 	first varchar(25),
 	last varchar(25),
+	role varchar(50) NOT NULL,
 	CONSTRAINT pk_user PRIMARY KEY (user_id)
 );
 
@@ -49,6 +50,3 @@ CREATE TABLE workout_list (
 	CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id),
 	CONSTRAINT fk_exercise_id FOREIGN KEY(exercise_id) REFERENCES exercise(exercise_id)
 );
-
-
-

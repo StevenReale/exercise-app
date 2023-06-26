@@ -12,6 +12,7 @@ CREATE TABLE users (
 	password_hash varchar(50) NOT NULL,
 	first varchar(25),
 	last varchar(25),
+	role varchar(50) NOT NULL,
 	CONSTRAINT pk_user PRIMARY KEY (user_id)
 );
 
@@ -51,6 +52,16 @@ CREATE TABLE workout_list (
 	CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id),
 	CONSTRAINT fk_exercise_id FOREIGN KEY(exercise_id) REFERENCES exercise(exercise_id)
 );
+
+------------------------------ Test Data ---------------------------------
+
+-- Users - all have password: 'password'
+INSERT INTO users (user_id, username, password_hash, first, last, role)
+	VALUES (100, 'admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'Diane', 'Gress', 'ROLE_ADMIN');
+INSERT INTO users (user_id, username, password_hash, first, last, role)
+	VALUES (101, 'user1','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'Stephen', 'Reale','ROLE_USER');
+INSERT INTO users (user_id, username, password_hash, first, last, role)
+	VALUES (102, 'user2','$2a$10$We8.y4IV/uQOPT1crppxR.aASgeKFr24ISrkHcqWWSYlxRu4oeqE6', 'Suzie', 'Q', 'ROLE_USER');
 
 INSERT INTO exercise (exercise_name)
     VALUES ('exercise 1'),  -- 1
