@@ -41,7 +41,7 @@ public class User {
         this.activated = true;
     }
 
-    public User(int id, String username, String password, String authorities, String first, String last) {
+    public User(int id, String username, String password, String first, String last, String authorities) {
         this.id = id;
         this.username = username;
         this.password = password;

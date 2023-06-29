@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS exercise;
 CREATE TABLE users (
 	user_id serial NOT NULL,
 	username varchar(50) NOT NULL,
-	password_hash varchar(50) NOT NULL,
+	password_hash varchar(200) NOT NULL,
 	first varchar(25),
 	last varchar(25),
 	role varchar(50) NOT NULL,
