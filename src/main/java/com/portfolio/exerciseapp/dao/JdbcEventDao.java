@@ -4,6 +4,7 @@ import com.portfolio.exerciseapp.model.Event;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,8 +60,18 @@ public class JdbcEventDao implements EventDao {
     }
 
     @Override
-    public List<Event> getAllEventsByDate(Date date) {
-        return null;
+    public List<Event> getAllEventsByDate(LocalDate localDate) {
+
+        List<Event> eventsByDate = new ArrayList<>();
+        String sql = "SELECT event_id, user_id, workout_id, workout_date " +
+                "FROM workout_event " +
+                "WHERE workout_date = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, localDate);
+        while(result.next()) {
+            eventsByDate.add(mapRowToEvent(result));
+        }
+
+        return eventsByDate;
     }
 
     @Override

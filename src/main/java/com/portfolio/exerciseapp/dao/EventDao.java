@@ -2,6 +2,7 @@ package com.portfolio.exerciseapp.dao;
 
 import com.portfolio.exerciseapp.model.Event;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface EventDao {
 
     public List<Event> getAllEventsByUser(int userId);
 
-    public List<Event> getAllEventsByDate(Date date);
+    public List<Event> getAllEventsByDate(LocalDate localDate);
 
     public List<Event> getAllEventsByWorkout(int workoutId);
 
