@@ -74,4 +74,10 @@ INSERT INTO workout (exercise_id, num_sets, num_reps, weight, workout_time, dist
     		 (2, 1, 1, 1, 1, 200.6), --3
     		 (2, 3, 4, 5, 6, 7.8);   --4
 
+INSERT INTO workout_event (user_id, workout_id, workout_date)
+    VALUES  (101, 1, '2023-07-03'),   --1
+            (101, 2, '2023-07-04'),   --2
+            (102, 1, '2023-07-03'),   --3
+            (102, 3, '2023-07-03');   --4
+
 COMMIT;
