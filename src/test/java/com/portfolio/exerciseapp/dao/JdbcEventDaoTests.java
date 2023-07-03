@@ -7,12 +7,12 @@ import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class JdbcEventDaoTests extends BaseDaoTests {
 
+    private final int EXERCISE_1_ID = 1;
     private final int USER_1_ID = 101;
     private final LocalDate JULY_3 = LocalDate.parse("2023-07-03");
 
@@ -24,6 +24,7 @@ public class JdbcEventDaoTests extends BaseDaoTests {
     private final List<Event> ALL_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3, EVENT_4);
     private final List<Event> USER_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2);
     private final List<Event> JULY_3_EVENTS = Arrays.asList(EVENT_1, EVENT_3, EVENT_4);
+    private final List<Event> EXERCISE_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3);
 
     private JdbcEventDao jdbcEventDao;
 
@@ -81,6 +82,19 @@ public class JdbcEventDaoTests extends BaseDaoTests {
         Assert.assertEquals("List lengths should match", JULY_3_EVENTS.size(), july3Events.size());
         assertEventsMatch("First elements should match", JULY_3_EVENTS.get(0), july3Events.get(0));
         assertEventsMatch("Last elements should match", JULY_3_EVENTS.get(JULY_3_EVENTS.size()-1), july3Events.get(july3Events.size()-1));
+
+    }
+
+    @Test
+    public void get_events_by_exercise_returns_correct_list() {
+
+        //Act
+        List<Event> exercise1Events = jdbcEventDao.getAllEventsByExercise(EXERCISE_1_ID);
+
+        //Assert
+        Assert.assertEquals("List lengths should match", EXERCISE_1_EVENTS.size(), exercise1Events.size());
+        assertEventsMatch("First elements should match", EXERCISE_1_EVENTS.get(0), exercise1Events.get(0));
+        assertEventsMatch("Last elements should match", EXERCISE_1_EVENTS.get(EXERCISE_1_EVENTS.size()-1), exercise1Events.get(exercise1Events.size()-1));
 
     }
 

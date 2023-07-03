@@ -6,7 +6,6 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class JdbcEventDao implements EventDao {
@@ -75,8 +74,19 @@ public class JdbcEventDao implements EventDao {
     }
 
     @Override
-    public List<Event> getAllEventsByWorkout(int workoutId) {
-        return null;
+    public List<Event> getAllEventsByExercise(int exerciseId) {
+
+        List<Event> eventsByExercise = new ArrayList<>();
+        String sql = "SELECT e.event_id, e.user_id, e.workout_id, e.workout_date " +
+                "FROM workout_event e " +
+                "JOIN workout w USING (workout_id) " +
+                "WHERE w.exercise_id = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, exerciseId);
+        while(result.next()) {
+            eventsByExercise.add(mapRowToEvent(result));
+        }
+
+        return eventsByExercise;
     }
 
     @Override
