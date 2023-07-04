@@ -68,12 +68,10 @@ public class JdbcExerciseDao implements ExerciseDAO {
         for (Workout workout : workoutsWithExercise) {
             jdbcWorkoutDAO.deleteWorkout(workout.getWorkoutId());
         }
-        
-        String sql = "DELETE FROM workout " +
-                "WHERE exercise_id = ?;" +
-                "DELETE FROM exercise " +
+
+        String sql = "DELETE FROM exercise " +
                 "WHERE exercise_id = ?;";
-        jdbcTemplate.update(sql, id, id);
+        jdbcTemplate.update(sql, id);
     }
 
     private Exercise mapRowToObject(SqlRowSet result) {
