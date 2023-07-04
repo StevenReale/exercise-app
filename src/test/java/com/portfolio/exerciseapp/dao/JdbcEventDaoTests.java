@@ -98,6 +98,52 @@ public class JdbcEventDaoTests extends BaseDaoTests {
 
     }
 
+    @Test
+    public void created_event_reflected_in_database() {
+        //Arrange
+        Event createdEvent = new Event();
+        createdEvent.setUserId(102);
+        createdEvent.setWorkoutId(4);
+        createdEvent.setDate(LocalDate.parse("2023-07-05"));
+
+        //Act
+        Event createdEventFromDB = jdbcEventDao.createEvent(createdEvent);
+        createdEvent.setEventId(createdEventFromDB.getEventId());
+
+        //Assert
+        assertEventsMatch("Created event in database should match created event", createdEvent, createdEventFromDB);
+    }
+
+    @Test
+    public void updated_event_reflected_in_database() {
+        //Arrange
+        EVENT_1.setUserId(102);
+        EVENT_1.setWorkoutId(4);
+        EVENT_1.setDate(LocalDate.parse("2023-07-05"));
+
+        //Act
+        boolean isUpdated = jdbcEventDao.updateEvent(EVENT_1);
+        Event updatedEvent = jdbcEventDao.getEventById(EVENT_1.getEventId());
+
+        //Assert
+        Assert.assertTrue("update query should return true", isUpdated);
+        assertEventsMatch("event should be updated in database", EVENT_1, updatedEvent);
+    }
+
+    public void deleted_event_does_not_appear_in_database() {
+        //Arrange
+        int event4Id = EVENT_4.getEventId();
+
+        //Act
+        jdbcEventDao.deleteEvent(event4Id);
+        Event event4 = jdbcEventDao.getEventById(event4Id);
+        Event event3 = jdbcEventDao.getEventById(EVENT_3.getEventId());
+
+        //Assert
+        Assert.assertNull("deleted object should return null", event4);
+        assertEventsMatch("object not deleted should remain in database", EVENT_3, event3);
+    }
+
     private void assertEventsMatch(String message, Event expected, Event actual) {
         Assert.assertEquals(message + ": ids should match", expected.getEventId(), actual.getEventId());
         Assert.assertEquals(message + ": users should match", expected.getUserId(), actual.getUserId());

@@ -91,17 +91,36 @@ public class JdbcEventDao implements EventDao {
 
     @Override
     public Event createEvent(Event event) {
-        return null;
+
+        String sql = "INSERT INTO workout_event (user_id, workout_id, workout_date) " +
+                "VALUES (?, ?, ?) RETURNING event_id;";
+        Integer eventId = jdbcTemplate.queryForObject(sql, Integer.class,
+                event.getUserId(),
+                event.getWorkoutId(),
+                event.getDate()
+        );
+        return getEventById(eventId);
     }
 
     @Override
     public boolean updateEvent(Event event) {
-        return false;
+
+        String sql = "UPDATE workout_event SET user_id = ?, workout_id = ?, workout_date = ? " +
+                "WHERE event_id = ?;";
+        return jdbcTemplate.update(sql,
+
+                event.getUserId(),
+                event.getWorkoutId(),
+                event.getDate(),
+                event.getEventId()
+
+                ) > 0;
     }
 
     @Override
     public void deleteEvent(int id) {
-
+        String sql = "DELETE FROM workout_event WHERE event_id = ?;";
+        jdbcTemplate.update(sql, id);
     }
 
     private Event mapRowToEvent(SqlRowSet result) {
