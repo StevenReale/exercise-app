@@ -45,12 +45,11 @@ CREATE TABLE workout_event (
 );
 
 CREATE TABLE workout_list (
-	--list_id serial NOT NULL,
 	user_id int NOT NULL,
-	exercise_id int NOT NULL,
-	UNIQUE (user_id, exercise_id),
+	workout_id int NOT NULL,
+	UNIQUE (user_id, workout_id),
 	CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id),
-	CONSTRAINT fk_exercise_id FOREIGN KEY(exercise_id) REFERENCES exercise(exercise_id)
+	CONSTRAINT fk_workout_id FOREIGN KEY(workout_id) REFERENCES workout(workout_id)
 );
 
 ------------------------------ Test Data ---------------------------------
@@ -79,5 +78,11 @@ INSERT INTO workout_event (user_id, workout_id, workout_date)
             (101, 2, '2023-07-04'),   --2
             (102, 1, '2023-07-03'),   --3
             (102, 3, '2023-07-03');   --4
+
+INSERT INTO workout_list (user_id, workout_id)
+    VALUES  (101, 1),
+            (101, 2),
+            (102, 1),
+            (102, 3);
 
 COMMIT;

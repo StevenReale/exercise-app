@@ -78,8 +78,10 @@ public class JdbcWorkoutDAO implements WorkoutDAO{
 
     @Override
     public void deleteWorkout(int id) {
-        String sql = "DELETE FROM workout WHERE workout_id = ?;";
-        jdbcTemplate.update(sql, id);
+        String sql = "DELETE FROM workout_list WHERE workout_id = ?; " +
+                "DELETE FROM workout_event WHERE workout_id = ?;" +
+                "DELETE FROM workout WHERE workout_id = ?;";
+        jdbcTemplate.update(sql, id, id, id);
 
     }
 

@@ -1,6 +1,7 @@
 package com.portfolio.exerciseapp.dao;
 
 import com.portfolio.exerciseapp.model.Exercise;
+import com.portfolio.exerciseapp.model.Workout;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -13,8 +14,12 @@ import java.util.List;
 public class JdbcExerciseDao implements ExerciseDAO {
 
     private final JdbcTemplate jdbcTemplate;
+    private final JdbcWorkoutDAO jdbcWorkoutDAO;
 
-    public JdbcExerciseDao (JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
+    public JdbcExerciseDao (JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+        jdbcWorkoutDAO = new JdbcWorkoutDAO(jdbcTemplate);
+    }
 
     @Override
     public Exercise getExerciseById(int id) {
@@ -59,6 +64,11 @@ public class JdbcExerciseDao implements ExerciseDAO {
 
     @Override
     public void deleteExerciseById(int id) {
+        List<Workout> workoutsWithExercise = jdbcWorkoutDAO.getAllWorkoutsByExerciseId(id);
+        for (Workout workout : workoutsWithExercise) {
+            jdbcWorkoutDAO.deleteWorkout(workout.getWorkoutId());
+        }
+        
         String sql = "DELETE FROM workout " +
                 "WHERE exercise_id = ?;" +
                 "DELETE FROM exercise " +
