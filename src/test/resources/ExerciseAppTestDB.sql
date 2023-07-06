@@ -65,13 +65,13 @@ INSERT INTO users (user_id, username, password_hash, first, last, role)
 INSERT INTO exercise (exercise_name)
     VALUES ('exercise 1'),  -- 1
            ('exercise 2'),  -- 2
-           ('exercise 3');  -- 3
+           ('exercise 3');  -- 3. For Integration Testing, do not add this exercise to a workout
 
 INSERT INTO workout (exercise_id, num_sets, num_reps, weight, workout_time, distance)
     VALUES   (1, 2, 2, 2, 2, 10.5),  --1
     	     (1, 3, 3, 3, 3, 100.2), --2
     		 (2, 1, 1, 1, 1, 200.6), --3
-    		 (2, 3, 4, 5, 6, 7.8);   --4
+    		 (2, 3, 4, 5, 6, 7.8);   --4. For Integration Testing, do not add this workout to a workout_event or workout_list
 
 INSERT INTO workout_event (user_id, workout_id, workout_date)
     VALUES  (101, 1, '2023-07-03'),   --1

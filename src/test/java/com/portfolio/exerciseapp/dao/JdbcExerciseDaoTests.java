@@ -85,8 +85,8 @@ public class JdbcExerciseDaoTests extends BaseDaoTests {
     @Test
     public void delete_exercise_deletes_from_database() {
         //Act
-        jdbcExerciseDao.deleteExerciseById(EXERCISE_1.getExerciseId());
-        Exercise returned = jdbcExerciseDao.getExerciseById(EXERCISE_1.getExerciseId());
+        jdbcExerciseDao.deleteExerciseById(EXERCISE_3.getExerciseId());
+        Exercise returned = jdbcExerciseDao.getExerciseById(EXERCISE_3.getExerciseId());
 
         //Assert
         Assert.assertNull(returned);

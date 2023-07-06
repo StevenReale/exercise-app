@@ -117,8 +117,8 @@ public class JdbcWorkoutDaoTests extends BaseDaoTests{
     public void deleted_workout_returns_null_from_database() {
 
         //Act
-        jdbcWorkoutDao.deleteWorkout(WORKOUT_1.getWorkoutId());
-        Workout deletedWorkout = jdbcWorkoutDao.getWorkoutById(WORKOUT_1.getWorkoutId());
+        jdbcWorkoutDao.deleteWorkout(WORKOUT_4.getWorkoutId());
+        Workout deletedWorkout = jdbcWorkoutDao.getWorkoutById(WORKOUT_4.getWorkoutId());
 
         //Assert
         Assert.assertNull("deleted workout should be null", deletedWorkout);
