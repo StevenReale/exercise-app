@@ -28,7 +28,7 @@ import javax.validation.Valid;
  */
 @RestController
 @CrossOrigin
-@PreAuthorize("permitAll")
+@PreAuthorize("permitAll()")
 public class AuthenticationController {
 
     // JWT Token provider
