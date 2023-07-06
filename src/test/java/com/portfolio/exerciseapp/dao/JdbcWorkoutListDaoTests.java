@@ -1,5 +1,6 @@
 package com.portfolio.exerciseapp.dao;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.portfolio.exerciseapp.model.Workout;
 import org.junit.Assert;
 import org.junit.Before;
@@ -57,6 +58,18 @@ public class JdbcWorkoutListDaoTests extends BaseDaoTests {
         //Assert
         Assert.assertEquals("list should be length 1", user102Workouts.size(), 1);
         Assert.assertEquals("workout id of first element should be 3", 3, user102Workouts.get(0).getWorkoutId());
+    }
+
+    @Test
+    public void deleting_all_workouts_by_workout_id_correct_updates_database() {
+        //Arrange
+        jdbcWorkoutListDao.deleteAllWorkoutsFromListByWorkoutId(1);
+        List<Workout> user1WorkoutsWithDeletedWorkout1 = jdbcWorkoutListDao.getAllWorkoutsByUserId(101);
+
+        //Assert
+        Assert.assertEquals("list should have one element", 1, user1WorkoutsWithDeletedWorkout1.size());
+
+
     }
 
 }

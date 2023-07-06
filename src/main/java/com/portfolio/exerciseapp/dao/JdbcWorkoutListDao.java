@@ -50,4 +50,11 @@ public class JdbcWorkoutListDao implements WorkoutListDao {
                 "WHERE user_id = ? AND workout_id = ?;";
         jdbcTemplate.update(sql, userId, workoutId);
     }
+
+    @Override
+    public void deleteAllWorkoutsFromListByWorkoutId(int workoutId) {
+        String sql = "DELETE FROM workout_list " +
+                "WHERE workout_id = ?;";
+        jdbcTemplate.update(sql, workoutId);
+    }
 }

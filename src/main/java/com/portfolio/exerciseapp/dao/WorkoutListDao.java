@@ -12,4 +12,6 @@ public interface WorkoutListDao {
 
     public void deleteWorkoutFromList(int userId, int workoutId);
 
+    public void deleteAllWorkoutsFromListByWorkoutId(int workoutId);
+
 }
