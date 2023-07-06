@@ -64,10 +64,6 @@ public class JdbcExerciseDao implements ExerciseDAO {
 
     @Override
     public void deleteExerciseById(int id) {
-        List<Workout> workoutsWithExercise = jdbcWorkoutDAO.getAllWorkoutsByExerciseId(id);
-        for (Workout workout : workoutsWithExercise) {
-            jdbcWorkoutDAO.deleteWorkout(workout.getWorkoutId());
-        }
 
         String sql = "DELETE FROM exercise " +
                 "WHERE exercise_id = ?;";
