@@ -1,14 +1,10 @@
 package com.portfolio.exerciseapp.service;
 
-import com.portfolio.exerciseapp.dao.EventDao;
-import com.portfolio.exerciseapp.dao.ExerciseDAO;
-import com.portfolio.exerciseapp.dao.WorkoutDAO;
-import com.portfolio.exerciseapp.dao.WorkoutListDao;
-import com.portfolio.exerciseapp.model.Event;
-import com.portfolio.exerciseapp.model.Exercise;
-import com.portfolio.exerciseapp.model.Workout;
+import com.portfolio.exerciseapp.dao.*;
+import com.portfolio.exerciseapp.model.*;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.List;
 
@@ -19,10 +15,12 @@ public class ExerciseService {
     private WorkoutDAO workoutDAO;
     private EventDao eventDao;
     private WorkoutListDao workoutListDao;
+    private UserDao userDao;
 
-    public ExerciseService (ExerciseDAO exerciseDAO) {
+    public ExerciseService (ExerciseDAO exerciseDAO, WorkoutDAO workoutDAO, UserDao userDao) {
         this.exerciseDAO = exerciseDAO;
         this.workoutDAO = workoutDAO;
+        this.userDao = userDao;
     }
 
     /**
@@ -44,14 +42,39 @@ public class ExerciseService {
      *
      * Business rules: authenticated users and admins only
      */
-    //public Exercise createExercise(Exercise exercise, Principal principal) {return exerciseDAO.createExercise(exercise);}
+    public Exercise createExercise(Exercise exercise, Principal principal) throws AccessDeniedException {
+
+        User user;
+
+        try {
+            user = getUser(principal);
+            return exerciseDAO.createExercise(exercise);
+        } catch (NullPointerException e) {
+            throw new AccessDeniedException("Registered Users Only");
+        }
+
+    }
 
     /**
      * Updates an exercise
      *
      * Business rules: admins only
      */
-    public boolean updateExercise(Exercise exercise, Principal principal) {return exerciseDAO.updateExercise(exercise);}
+    public boolean updateExercise(Exercise exercise, Principal principal) throws AccessDeniedException {
+
+        User user;
+
+        try {
+            user = getUser(principal);
+            if(!user.getAuthorities().contains(Authority.ADMIN_AUTHORITY)) {
+                throw new AccessDeniedException("Must have admin role to update exercise");
+            }
+            return exerciseDAO.updateExercise(exercise);
+        } catch (NullPointerException e) {
+            throw new AccessDeniedException("Must have admin role to update exercise");
+        }
+
+    }
 
     /**
      * Deletes an exercise. Use with extreme caution, as it deletes events from user's log
@@ -77,5 +100,21 @@ public class ExerciseService {
 
         //delete from exercise table
         exerciseDAO.deleteExerciseById(id);
+    }
+
+    /*
+     * Helper method to get the User object from the Principal.
+     */
+    private User getUser(Principal principal) {
+        String username = principal.getName();
+        User user = userDao.getByUsername(username);
+        return user;
+    }
+
+    /*
+     * Helper method to check if a user is an Admin user.
+     */
+    private boolean isAdminUser(User user) {
+        return user.getAuthorities().contains(Authority.ADMIN_AUTHORITY);
     }
 }
