@@ -41,7 +41,7 @@ public class JdbcUserDao implements UserDao {
 
         int userId;
         try {
-            userId = jdbcTemplate.queryForObject("SELECT user_id FROM users WHERE username = ?", int.class, username);
+            userId = jdbcTemplate.queryForObject("SELECT user_id FROM app_user WHERE username = ?", int.class, username);
         } catch (EmptyResultDataAccessException e) {
             throw new UsernameNotFoundException("User " + username + " was not found.");
         }
@@ -51,13 +51,13 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public boolean userExists(String username) {
-        int userCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM users WHERE username = ?;", int.class, username);
+        int userCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM app_user WHERE username = ?;", int.class, username);
         return (userCount == 1);
     }
 
     @Override
     public User getUserById(int userId) {
-        String sql = "SELECT user_id, username, password_hash, first, last, role FROM users WHERE user_id = ?";
+        String sql = "SELECT user_id, username, password_hash, first, last, role FROM app_user WHERE user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         if (results.next()) {
             return mapRowToUser(results);
@@ -70,7 +70,7 @@ public class JdbcUserDao implements UserDao {
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
         // Intentionally excluding password_hash - Not a good idea to allow mass selection of user password data (even if hashed).
-        String sql = "SELECT user_id, username, first, last, role FROM users ORDER BY username;";
+        String sql = "SELECT user_id, username, first, last, role FROM app_user ORDER BY username;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -85,7 +85,7 @@ public class JdbcUserDao implements UserDao {
     public User getByUsername(String username) {
         if (username == null) throw new IllegalArgumentException("Username cannot be null");
 
-        String sql = "SELECT user_id, username, password_hash, first, last, role FROM users WHERE username = ?";
+        String sql = "SELECT user_id, username, password_hash, first, last, role FROM app_user WHERE username = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
         if (results.next()) {
             return mapRowToUser(results);
@@ -96,7 +96,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User create(String username, String password, String role) {
-        String insertUserSql = "INSERT INTO users (username,password_hash,role) VALUES (?,?,?) RETURNING user_id";
+        String insertUserSql = "INSERT INTO app_user (username,password_hash,role) VALUES (?,?,?) RETURNING user_id";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
@@ -106,7 +106,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User update(User modifiedUser) {
-        String sql = "UPDATE users SET first=?, last=? WHERE user_id=?;";
+        String sql = "UPDATE app_user SET first=?, last=? WHERE user_id=?;";
         jdbcTemplate.update(sql, modifiedUser.getFirst(), modifiedUser.getLast(), modifiedUser.getId());
         return getUserById(modifiedUser.getId());
     }

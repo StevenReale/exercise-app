@@ -4,9 +4,10 @@ DROP TABLE IF EXISTS workout_list;
 DROP TABLE IF EXISTS workout_event;
 DROP TABLE IF EXISTS workout;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS app_user;
 DROP TABLE IF EXISTS exercise;
 
-CREATE TABLE users (
+CREATE TABLE app_user (
 	user_id serial NOT NULL,
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
@@ -40,7 +41,7 @@ CREATE TABLE workout_event (
 	workout_id int NOT NULL,
 	workout_date date NOT NULL,
 	CONSTRAINT pk_workout_event PRIMARY KEY (event_id),
-	CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
+	CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user(user_id),
 	CONSTRAINT fk_workout_id FOREIGN KEY (workout_id) REFERENCES workout(workout_id)
 );
 
@@ -48,18 +49,18 @@ CREATE TABLE workout_list (
 	user_id int NOT NULL,
 	workout_id int NOT NULL,
 	UNIQUE (user_id, workout_id),
-	CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(user_id),
+	CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES app_user(user_id),
 	CONSTRAINT fk_workout_id FOREIGN KEY(workout_id) REFERENCES workout(workout_id)
 );
 
 ------------------------------ Test Data ---------------------------------
 
 -- Users - all have password: 'password'
-INSERT INTO users (user_id, username, password_hash, first, last, role)
+INSERT INTO app_user (user_id, username, password_hash, first, last, role)
 	VALUES (100, 'admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'Diane', 'Gress', 'ROLE_ADMIN');
-INSERT INTO users (user_id, username, password_hash, first, last, role)
+INSERT INTO app_user (user_id, username, password_hash, first, last, role)
 	VALUES (101, 'user1','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'Stephen', 'Reale','ROLE_USER');
-INSERT INTO users (user_id, username, password_hash, first, last, role)
+INSERT INTO app_user (user_id, username, password_hash, first, last, role)
 	VALUES (102, 'user2','$2a$10$We8.y4IV/uQOPT1crppxR.aASgeKFr24ISrkHcqWWSYlxRu4oeqE6', 'Suzie', 'Q', 'ROLE_USER');
 
 INSERT INTO exercise (exercise_name)

@@ -3,10 +3,12 @@ package com.portfolio.exerciseapp.dao;
 import com.portfolio.exerciseapp.model.Workout;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JdbcWorkoutDAO implements WorkoutDAO{
 
     private final JdbcTemplate jdbcTemplate;
