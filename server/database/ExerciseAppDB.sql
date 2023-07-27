@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS workout_list;
 DROP TABLE IF EXISTS workout_event;
 DROP TABLE IF EXISTS workout;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS app_user;
 DROP TABLE IF EXISTS exercise;
 
