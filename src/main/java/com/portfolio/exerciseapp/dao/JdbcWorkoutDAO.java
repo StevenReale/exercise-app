@@ -49,6 +49,16 @@ public class JdbcWorkoutDAO implements WorkoutDAO{
     }
 
     @Override
+    public List<Workout> getAllWorkoutsByUser(int userId) {
+//        List<Workout> newList = new ArrayList<>();
+//        String sql = String sql = "SELECT w.workout_id, w.exercise_id, w.num_sets, w.num_reps, w.weight, w.workout_time, w.distance " +
+//                "FROM workout w " +
+//                "JOIN WHERE exercise_id = ?;";
+//        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
+        return null;
+    }
+
+    @Override
     public Workout createWorkout(Workout workout) {
         String sql = "INSERT INTO workout (exercise_id, num_sets, num_reps, weight, workout_time, distance) " +
                 "VALUES (?, ?, ?, ?, ?, ?) RETURNING workout_id;";
