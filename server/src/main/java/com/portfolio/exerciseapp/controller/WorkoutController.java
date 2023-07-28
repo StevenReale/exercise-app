@@ -41,8 +41,8 @@ public class WorkoutController {
     }
 
     @RequestMapping (method = RequestMethod.DELETE)
-    public void deleteWorkout(@RequestBody Workout workout) {
-        workoutService.deleteWorkout(workout.getWorkoutId());
+    public void deleteWorkout(@RequestBody Workout workout, Principal principal) {
+        workoutService.deleteWorkout(workout, principal);
     }
 
 

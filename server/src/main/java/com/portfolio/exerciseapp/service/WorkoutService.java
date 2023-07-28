@@ -17,10 +17,11 @@ public class WorkoutService {
     private WorkoutListDao workoutListDao;
     private UserDao userDao;
 
-    public WorkoutService(WorkoutDAO workoutDAO, WorkoutListDao workoutListDao) {
+    public WorkoutService(WorkoutDAO workoutDAO, WorkoutListDao workoutListDao, UserDao userDao) {
 
         this.workoutDAO = workoutDAO;
         this.workoutListDao = workoutListDao;
+        this.userDao = userDao;
         }
 
     public Workout getWorkoutById(int workoutId) { return workoutDAO.getWorkoutById(workoutId); }
@@ -41,7 +42,11 @@ public class WorkoutService {
 
     public boolean updateWorkout(Workout workout) { return workoutDAO.updateWorkout(workout); }
 
-    public void deleteWorkout(int id) { workoutDAO.deleteWorkout(id); }
+    public void deleteWorkout(Workout workout, Principal principal) {
+        User user = getUser(principal);
+        workoutListDao.deleteWorkoutFromList(user.getId(), workout.getWorkoutId());
+        workoutDAO.deleteWorkout(workout.getWorkoutId());
+    }
 
     private User getUser(Principal principal) {
         String username = principal.getName();
