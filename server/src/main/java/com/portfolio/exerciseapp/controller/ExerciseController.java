@@ -44,5 +44,24 @@ public class ExerciseController {
         }
         return created;
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(method = RequestMethod.PUT)
+    public boolean updateExercise(@RequestBody Exercise exercise, Principal principal) {
+        try {
+            return exerciseService.updateExercise(exercise, principal);
+        } catch (java.nio.file.AccessDeniedException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteExercise(@RequestBody Exercise exercise, Principal principal) {
+
+            exerciseService.deleteExerciseById(exercise.getExerciseId(), principal);
+
+    }
 }
 

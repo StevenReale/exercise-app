@@ -17,10 +17,11 @@ public class ExerciseService {
     private WorkoutListDao workoutListDao;
     private UserDao userDao;
 
-    public ExerciseService (ExerciseDAO exerciseDAO, WorkoutDAO workoutDAO, UserDao userDao) {
+    public ExerciseService (ExerciseDAO exerciseDAO, WorkoutDAO workoutDAO, UserDao userDao, EventDao eventDao) {
         this.exerciseDAO = exerciseDAO;
         this.workoutDAO = workoutDAO;
         this.userDao = userDao;
+        this.eventDao = eventDao;
     }
 
     /**
