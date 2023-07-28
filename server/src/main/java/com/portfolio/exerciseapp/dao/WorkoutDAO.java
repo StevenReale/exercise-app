@@ -12,8 +12,6 @@ public interface WorkoutDAO {
 
     public List<Workout> getAllWorkoutsByExerciseId(int id);
 
-    public List<Workout> getAllWorkoutsByUser(int userId);
-
     public Workout createWorkout(Workout workout);
 
     public boolean updateWorkout(Workout workout);
