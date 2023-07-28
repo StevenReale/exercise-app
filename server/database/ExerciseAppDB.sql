@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS workout_list;
 DROP TABLE IF EXISTS workout_event;
 DROP TABLE IF EXISTS workout;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS app_user;
 DROP TABLE IF EXISTS exercise;
 
@@ -54,3 +55,6 @@ CREATE TABLE workout_list (
 INSERT INTO app_user (username, password_hash, role)
     VALUES  ('new_user', '$2a$10$4ashShe3bhHl0QodoT1h8u69lmGfhvJTCnGPtidfGECSrYf9zbdKy', 'ROLE_USER'),
 	        ('admin', '$2a$10$M36MeRrIJMEvuyjQDTs9qeGi/50nCBOcqNndK5sSL.Y8LShW2q68m', 'ROLE_ADMIN');
+			
+INSERT INTO exercise (exercise_name)
+	VALUES ('Dead Lift');
