@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import LogbookView from '../views/LogbookView.vue'
 import store from '../store/index'
 
 /* eslint-disable */
@@ -14,7 +14,12 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    redirect: {name: "logbook"}
+  },
+  {
+    path: '/logbook',
+    name: 'logbook',
+    component: LogbookView
   },
   {
     path: '/about',
@@ -70,3 +75,4 @@ router.beforeEach((to, from, next) => {
 });
 
 export default router
+

@@ -5,8 +5,8 @@
          </div>
     </header>
   </template>
-  
-  <script>
+<script>
+/* eslint-disable */
   export default {
   
   }
@@ -27,7 +27,7 @@
   
   h1 {
     color: white;
-    margin-bottom: 10px;
+    margin: 10px;
     font-size: 20px;
   }
   </style>
