@@ -1,19 +1,20 @@
 package com.portfolio.exerciseapp.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Event {
     private int eventId;
     private int userId;
-    private Workout workout;
+    private List<Workout> workouts;
     private LocalDate date;
 
     public Event() {};
 
-    public Event(int eventId, int userId, Workout workout, LocalDate date) {
+    public Event(int eventId, int userId, List<Workout> workouts, LocalDate date) {
         this.eventId = eventId;
         this.userId = userId;
-        this.workout = workout;
+        this.workouts = workouts;
         this.date = date;
     }
 
@@ -33,12 +34,12 @@ public class Event {
         this.userId = userId;
     }
 
-    public Workout getWorkout() {
-        return workout;
+    public List<Workout> getWorkouts() {
+        return workouts;
     }
 
-    public void setWorkout(Workout workout) {
-        this.workout = workout;
+    public void setWorkouts(List<Workout> workouts) {
+        this.workouts = workouts;
     }
 
     public LocalDate getDate() {

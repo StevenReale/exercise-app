@@ -85,7 +85,7 @@ public class ExerciseService {
 
     public void deleteExerciseById(int id, Principal principal) {
         List<Workout> workoutsWithThisExercise = workoutDAO.getAllWorkoutsByExerciseId(id);
-        List<Event> eventsWithThisExercise = eventDao.getAllEventsByExercise(id);
+        //List<Event> eventsWithThisExercise = eventDao.getAllEventsByExercise(id);
 
         //iterates through all workouts with the exercise and deletes them from workout_list and workout tables
         for(Workout workout : workoutsWithThisExercise) {
@@ -95,9 +95,9 @@ public class ExerciseService {
         }
 
         //iterates through all events with the exercise and deletes them from event table
-        for (Event event : eventsWithThisExercise) {
-            eventDao.deleteEvent(event.getEventId());
-        }
+//        for (Event event : eventsWithThisExercise) {
+//            eventDao.deleteEvent(event.getEventId());
+//        }
 
         //delete from exercise table
         exerciseDAO.deleteExerciseById(id);
