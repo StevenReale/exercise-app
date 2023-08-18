@@ -5,15 +5,15 @@ import java.time.LocalDate;
 public class Event {
     private int eventId;
     private int userId;
-    private int workoutId;
+    private Workout workout;
     private LocalDate date;
 
     public Event() {};
 
-    public Event(int eventId, int userId, int workoutId, LocalDate date) {
+    public Event(int eventId, int userId, Workout workout, LocalDate date) {
         this.eventId = eventId;
         this.userId = userId;
-        this.workoutId = workoutId;
+        this.workout = workout;
         this.date = date;
     }
 
@@ -33,12 +33,12 @@ public class Event {
         this.userId = userId;
     }
 
-    public int getWorkoutId() {
-        return workoutId;
+    public Workout getWorkout() {
+        return workout;
     }
 
-    public void setWorkoutId(int workoutId) {
-        this.workoutId = workoutId;
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
     }
 
     public LocalDate getDate() {

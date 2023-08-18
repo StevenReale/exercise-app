@@ -16,22 +16,34 @@ public class JdbcEventDaoTests extends BaseDaoTests {
     private final int USER_1_ID = 101;
     private final LocalDate JULY_3 = LocalDate.parse("2023-07-03");
 
-    private final Event EVENT_1 = new Event(1, USER_1_ID, 1, JULY_3);
-    private final Event EVENT_2 = new Event(2, USER_1_ID, 2, LocalDate.parse("2023-07-04"));
-    private final Event EVENT_3 = new Event(3, 102, 1, JULY_3);
-    private final Event EVENT_4 = new Event(4, 102, 3, JULY_3);
+    private Event EVENT_1;
+    private Event EVENT_2;
+    private Event EVENT_3;
+    private Event EVENT_4;
 
-    private final List<Event> ALL_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3, EVENT_4);
-    private final List<Event> USER_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2);
-    private final List<Event> JULY_3_EVENTS = Arrays.asList(EVENT_1, EVENT_3, EVENT_4);
-    private final List<Event> EXERCISE_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3);
+    private List<Event> ALL_EVENTS;
+    private List<Event> USER_1_EVENTS;
+    private List<Event> JULY_3_EVENTS;
+    private List<Event> EXERCISE_1_EVENTS;
 
     private JdbcEventDao jdbcEventDao;
+    private WorkoutDAO workoutDAO;
 
     @Before
     public void setup() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        jdbcEventDao = new JdbcEventDao(jdbcTemplate);
+        workoutDAO = new JdbcWorkoutDAO(jdbcTemplate);
+        jdbcEventDao = new JdbcEventDao(jdbcTemplate, workoutDAO);
+
+        EVENT_1 = new Event(1, USER_1_ID, workoutDAO.getWorkoutById(1), JULY_3);
+        EVENT_2 = new Event(2, USER_1_ID, workoutDAO.getWorkoutById(2), LocalDate.parse("2023-07-04"));
+        EVENT_3 = new Event(3, 102, workoutDAO.getWorkoutById(1), JULY_3);
+        EVENT_4 = new Event(4, 102, workoutDAO.getWorkoutById(3), JULY_3);
+
+        ALL_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3, EVENT_4);
+        USER_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2);
+        JULY_3_EVENTS = Arrays.asList(EVENT_1, EVENT_3, EVENT_4);
+        EXERCISE_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3);
     }
 
     @Test
@@ -103,7 +115,7 @@ public class JdbcEventDaoTests extends BaseDaoTests {
         //Arrange
         Event createdEvent = new Event();
         createdEvent.setUserId(102);
-        createdEvent.setWorkoutId(4);
+        createdEvent.setWorkout(workoutDAO.getWorkoutById(4));
         createdEvent.setDate(LocalDate.parse("2023-07-05"));
 
         //Act
@@ -118,7 +130,7 @@ public class JdbcEventDaoTests extends BaseDaoTests {
     public void updated_event_reflected_in_database() {
         //Arrange
         EVENT_1.setUserId(102);
-        EVENT_1.setWorkoutId(4);
+        EVENT_1.setWorkout(workoutDAO.getWorkoutById(4));
         EVENT_1.setDate(LocalDate.parse("2023-07-05"));
 
         //Act
@@ -147,7 +159,7 @@ public class JdbcEventDaoTests extends BaseDaoTests {
     private void assertEventsMatch(String message, Event expected, Event actual) {
         Assert.assertEquals(message + ": ids should match", expected.getEventId(), actual.getEventId());
         Assert.assertEquals(message + ": users should match", expected.getUserId(), actual.getUserId());
-        Assert.assertEquals(message + ": workout ids should match", expected.getWorkoutId(), actual.getWorkoutId());
+        Assert.assertEquals(message + ": workout ids should match", expected.getWorkout().getWorkoutId(), actual.getWorkout().getWorkoutId());
         Assert.assertEquals(message + ": dates should match", expected.getDate(), actual.getDate());
     }
 
