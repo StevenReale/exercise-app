@@ -1,6 +1,7 @@
 package com.portfolio.exerciseapp.dao;
 
 import com.portfolio.exerciseapp.model.Event;
+import com.portfolio.exerciseapp.model.Workout;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -13,8 +14,12 @@ import java.util.List;
 public class JdbcEventDao implements EventDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private final WorkoutDAO workoutDao;
 
-    public JdbcEventDao (JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
+    public JdbcEventDao (JdbcTemplate jdbcTemplate, WorkoutDAO workoutDao) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.workoutDao = workoutDao;
+    }
 
     @Override
     public Event getEventById(int id) {
@@ -98,7 +103,7 @@ public class JdbcEventDao implements EventDao {
                 "VALUES (?, ?, ?) RETURNING event_id;";
         Integer eventId = jdbcTemplate.queryForObject(sql, Integer.class,
                 event.getUserId(),
-                event.getWorkoutId(),
+                event.getWorkout().getWorkoutId(),
                 event.getDate()
         );
         return getEventById(eventId);
@@ -112,7 +117,7 @@ public class JdbcEventDao implements EventDao {
         return jdbcTemplate.update(sql,
 
                 event.getUserId(),
-                event.getWorkoutId(),
+                event.getWorkout().getWorkoutId(),
                 event.getDate(),
                 event.getEventId()
 
@@ -126,10 +131,13 @@ public class JdbcEventDao implements EventDao {
     }
 
     private Event mapRowToEvent(SqlRowSet result) {
+        int workoutId = result.getInt("workout_id");
+        Workout workout = workoutDao.getWorkoutById(workoutId);
+
         Event event = new Event(
                 result.getInt("event_id"),
                 result.getInt("user_id"),
-                result.getInt("workout_id"),
+                workout,
                 result.getDate("workout_date").toLocalDate()
         );
         return event;

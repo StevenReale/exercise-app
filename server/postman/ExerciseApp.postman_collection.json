@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "f89629d7-b15a-4729-999b-7cc4b62fa754",
+		"_postman_id": "6d6ef3c6-d6fd-4cf1-be3c-599f887f0d88",
 		"name": "ExerciseApp",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28804561"
 	},
 	"item": [
 		{
@@ -510,6 +511,40 @@
 							"port": "8080",
 							"path": [
 								"exercises"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get Event By EventID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuZXdfdXNlciIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2OTA2NDc0MTV9.0aiMCUTGxmhB5UXkRumO3PvikK63tp2FBxVo8qPifXIWPpsoLEkoFFpsk7caD8rH6npGWy1xycGqq1TqtkKHfA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/workouts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"workouts"
 							]
 						}
 					},
