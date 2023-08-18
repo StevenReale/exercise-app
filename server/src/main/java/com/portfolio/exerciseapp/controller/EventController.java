@@ -15,6 +15,7 @@ public class EventController {
 
     public EventController(EventService eventService) {this.eventService = eventService;}
 
+    @PreAuthorize("permitAll()")
     @RequestMapping(path = "/{eventId}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable int eventId) {
         return eventService.getEventById(eventId);
