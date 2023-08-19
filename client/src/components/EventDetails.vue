@@ -1,76 +1,67 @@
 <template>
     <div>
       <article class="workout-card">
-        <div class="workout-header">
-          <div id="date">{{ event.date }}</div>
-          <div id="action">Save</div>
-        </div>
-        <div class="workout-details">
-          <div v-for="(workout, index) in event.workouts" :key="index">
-            <div class="exercise">{{ getExerciseName(workout.exerciseId) }}</div>
-            <div class="exercise-details">
-              <div class="exercise-number">{{ workout.sets }} x {{ workout.reps }} @ {{ workout.weight }}</div>
-            </div>
+          <div class="workout-header">
+              <div id="date">{{ event.date }}</div>
+              <div id="action">Save</div>
           </div>
-        </div>
+          <div class="workout-details">
+              <div class="exercise">{{ exercise.name }}</div>
+              <div class="exercise-details">
+                  <div class="exercise-number">{{ event.workout.sets }} x {{ event.workout.reps }} @ {{ event.workout.weight }}</div>
+              </div>
+          </div>
       </article>
     </div>
-  </template>
+</template>
 <script>
 /* eslint-disable */
   import eventService from '../services/EventService';
   import exerciseService from '@/services/ExerciseService';
-  
   export default {
-    name: 'event-details',
-    data() {
-      return {
-        event: {
-          "eventId": null,
-          "userId": null,
-          "workouts": [{
-            "workoutId": null,
-            "exerciseId": null,
-            "sets": null,
-            "reps": null,
-            "weight": null,
-            "time": null,
-            "distance": null
-          }],
-          "date": ''
-        }
-      };
-    },
-    created() {
-      this.fetchEvent();
-    }, 
-    methods: {
-      fetchEvent() {
-        eventService.get(this.$route.params.eventId)
-          .then((response) => {
-            this.event = response.data;
-            this.getExerciseNames();
+      name: 'event-details',
+      data() {
+          return {
+              event: {
+                "eventId": null,
+                "userId": null,
+                "workout": {
+                    "workoutId": null,
+                    "exerciseId": null,
+                    "sets": null,
+                    "reps": null,
+                    "weight": null,
+                    "time": null,
+                    "distance": null
+                },
+                "date": ''
+            },
+            exercise: {
+                "exerciseId": null,
+                "name": ''
+            }
+          };
+      },
+      created() {
+          this.fetchEvent();
+      }, 
+      methods: {
+        fetchEvent() {
+            eventService.get(this.$route.params.eventId).then((response) => {
+              this.event = response.data;
+              this.getExercise();
           })
           .catch(error => {
-            console.error('Failed to retrieve event:', error);
-          });
-      },
-      getExerciseNames() {
-        const exerciseIds = this.event.workouts.map(workout => workout.exerciseId);
-        this.exercises = []; // Clear previous exercise data
-        exerciseIds.forEach(exerciseId => {
-          exerciseService.get(exerciseId)
-            .then((response) => {
-              this.exercises.push(response.data);
-            });
+          console.error('Failed to retrieve event:', error);
         });
-      },
-      getExerciseName(exerciseId) {
-        const exercise = this.exercises.find(exercise => exercise.exerciseId === exerciseId);
-        return exercise ? exercise.name : 'Unknown Exercise';
-      }
+        },
+        getExercise() {
+            exerciseService.get(this.event.workout.exerciseId).then((response) => {
+                this.exercise = response.data;
+            });
+        }
+    },
     }
-  }
   </script>
   
   <style scoped>

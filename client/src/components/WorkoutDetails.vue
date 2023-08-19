@@ -14,7 +14,6 @@
     </article>
   </div>
 </template>
-
 <script>
 /* eslint-disable */
 import workoutService from '../services/WorkoutService';

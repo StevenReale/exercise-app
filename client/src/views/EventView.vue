@@ -6,8 +6,9 @@
       </div>
     </div>
   </template>
-<script>
-/* eslint-disable */
+  
+  <script>
+  /* eslint-disable */
   import EventDetails from '../components/EventDetails.vue';
   
   export default {

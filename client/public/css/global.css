@@ -1,7 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Krona+One");
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html, body {
+    font-family: "Krona One", sans-serif;
+}
+
+#app {
+    font-family: "Krona One", sans-serif;
 }
 
 body {
