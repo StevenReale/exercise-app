@@ -13,10 +13,9 @@
 <script>
 /* eslint-disable */
 import AppHeader from './components/AppHeader.vue';
-// import MainNav from './components/MainNav.vue';
+import MainNav from './components/MainNav.vue';
 export default {
-  components: {AppHeader}
-  // add MainNav back
+  components: {AppHeader, MainNav}
 }
 </script>
 

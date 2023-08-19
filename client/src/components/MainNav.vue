@@ -1,5 +1,8 @@
 <template>
-  <nav>
+    <aside>
+        <h1>Sidebar</h1>
+    </aside>
+  <!-- <nav>
     <div class="sidebar">
         <div class="icon">
             <box-icon class="menu-icon" name="menu"></box-icon>
@@ -15,7 +18,7 @@
             </ul>
         </div>
     </div>
-  </nav>
+  </nav> -->
 </template>
 
 <script>
@@ -26,7 +29,30 @@ export default {
 </script>
 
 <style scoped>
-nav {
+:root {
+    --primary: #9747FF;
+    --grey: #E6E4E4;
+    --dark-grey: #747474;
+    --black: #000000;
+    --light: #FFFFFF;
+    --sidebar-width: 300px;
+}
+
+button {
+    cursor: pointer;
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.app {
+    display: flex;
+
+    
+}
+
+/* nav {
     padding: 0px;
     position: fixed;
     top: 50px;
@@ -87,6 +113,6 @@ nav .sidebar {
     font-size: 14px;
     color: #707070;
     font-weight: 400;
-}
+} */
 
 </style>
