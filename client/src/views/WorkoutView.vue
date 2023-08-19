@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="workout">
     <h1>Workout Details</h1>
     <div id="workout-details">
       <WorkoutDetails />
@@ -19,6 +19,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
