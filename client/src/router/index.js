@@ -5,6 +5,7 @@ import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LogbookView from '../views/LogbookView.vue'
 import WorkoutView from '../views/WorkoutView.vue'
+import EventView from '../views/EventView.vue'
 import store from '../store/index'
 
 /* eslint-disable */
@@ -63,6 +64,11 @@ const routes = [
     path: '/workouts/:workoutId',
     name: 'Workout',
     component: WorkoutView
+  },
+  {
+    path: '/events/:eventId',
+    name: 'Event',
+    component: EventView
   }
 ]
 
