@@ -1,7 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Krona+One");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0");
+
+:root {
+    --primary: #9747FF;
+    --grey: #E6E4E4;
+    --dark-grey: #747474;
+    --black: #000000;
+    --light: #FFFFFF;
+    --sidebar-width: 300px;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html, body {
+    font-family: "Krona One", sans-serif;
+}
+
+.app {
+    display: flex;
+    font-family: "Krona One", sans-serif;
 }
 
 body {
@@ -9,3 +30,23 @@ body {
     margin-top: 50px;
 }
 
+h1 {
+    font-size: 16px;
+}
+
+button {
+    cursor: pointer;
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+main {
+    flex: 1 1 0;
+    padding: 2rem;
+
+    @media (max-width: 1024px) {
+        padding-left: 6rem;
+    }
+}

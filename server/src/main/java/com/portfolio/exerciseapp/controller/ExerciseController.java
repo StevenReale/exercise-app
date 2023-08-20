@@ -34,6 +34,7 @@ public class ExerciseController {
         return exerciseService.getExerciseById(exerciseId);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     public Exercise addExercise(@RequestBody Exercise exercise, Principal principal) {
         Exercise created = new Exercise();

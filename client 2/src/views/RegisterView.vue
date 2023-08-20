@@ -15,7 +15,7 @@
           <label for="first_name">First Name</label>
           <input
             type="text"
-            id="first-name"
+            id="name"
             placeholder="First"
             v-model="user.first"
             required
@@ -23,7 +23,7 @@
           <label for="last_name">Last Name</label>
           <input
             type="text"
-            id="last-name"
+            id="name"
             placeholder="Last"
             v-model="user.last"
             required

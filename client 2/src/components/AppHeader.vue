@@ -28,6 +28,6 @@
   h1 {
     color: white;
     margin: 10px;
-    font-size: 16px;
+    font-size: 20px;
   }
   </style>
