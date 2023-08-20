@@ -40,7 +40,7 @@ public class JdbcEventDao implements EventDao {
 
         List<Event> allEvents = new ArrayList<>();
         String sql = "SELECT event_id, user_id, workout_date " +
-                "FROM workout_event;";
+                "FROM event;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
         while(result.next()) {
             allEvents.add(mapRowToEvent(result));
@@ -88,7 +88,8 @@ public class JdbcEventDao implements EventDao {
             "FROM event e " +
             "JOIN workout_event we ON (e.event_id = we.event_id) " +
             "JOIN workout w ON (we.workout_id = w.workout_id) " +
-            "WHERE w.exercise_id = ?;";
+            "WHERE w.exercise_id = ? " +
+            "GROUP BY e.event_id";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, exerciseId);
         while(result.next()) {
             eventsByExercise.add(mapRowToEvent(result));
@@ -100,33 +101,52 @@ public class JdbcEventDao implements EventDao {
     @Override
     public Event createEvent(Event event) {
 
-        String sql = "INSERT INTO workout_event (user_id, workout_date) " +
-                "VALUES (?, ?, ?) RETURNING event_id;";
+        String sql = "INSERT INTO event (user_id, workout_date) " +
+                "VALUES (?, ?) RETURNING event_id;";
         Integer eventId = jdbcTemplate.queryForObject(sql, Integer.class,
                 event.getUserId(),
                 event.getDate()
         );
+        List<Workout> eventWorkouts = event.getWorkouts();
+        for (int i = 0; i < eventWorkouts.size(); i++) {
+            String innerSql = "INSERT INTO workout_event (event_id, workout_id) " +
+                    "VALUES (?, ?);";
+            jdbcTemplate.update(innerSql, eventId, eventWorkouts.get(i).getWorkoutId());
+        }
         return getEventById(eventId);
     }
 
     @Override
     public boolean updateEvent(Event event) {
 
-        String sql = "UPDATE workout_event SET user_id = ?, workout_date = ? " +
+        String sql = "UPDATE event SET user_id = ?, workout_date = ? " +
                 "WHERE event_id = ?;";
-        return jdbcTemplate.update(sql,
+        boolean updated = jdbcTemplate.update(sql,
 
                 event.getUserId(),
                 event.getDate(),
                 event.getEventId()
 
                 ) > 0;
+        if (!updated) return false;
+
+        sql = "DELETE FROM workout_event WHERE event_id = ?;";
+        jdbcTemplate.update(sql, event.getEventId());
+
+        for (int i = 0; i < event.getWorkouts().size(); i++) {
+            sql = "INSERT INTO workout_event (event_id, workout_id) VALUES (?,?);";
+            jdbcTemplate.update(sql, event.getEventId(), event.getWorkouts().get(i).getWorkoutId());
+        }
+        return true;
     }
 
     @Override
     public void deleteEvent(int id) {
         String sql = "DELETE FROM workout_event WHERE event_id = ?;";
         jdbcTemplate.update(sql, id);
+        sql = "DELETE FROM event WHERE event_id = ?;";
+        jdbcTemplate.update(sql, id);
+
     }
 
     private Event mapRowToEvent(SqlRowSet result) {

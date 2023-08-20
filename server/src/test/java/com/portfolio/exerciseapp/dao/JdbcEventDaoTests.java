@@ -52,7 +52,7 @@ public class JdbcEventDaoTests extends BaseDaoTests {
         ALL_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3, EVENT_4);
         USER_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2);
         JULY_3_EVENTS = Arrays.asList(EVENT_1, EVENT_3, EVENT_4);
-        EXERCISE_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3);
+        EXERCISE_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3, EVENT_4);
     }
 
     @Test
@@ -151,6 +151,7 @@ public class JdbcEventDaoTests extends BaseDaoTests {
         assertEventsMatch("event should be updated in database", EVENT_1, updatedEvent);
     }
 
+    @Test
     public void deleted_event_does_not_appear_in_database() {
         //Arrange
         int event4Id = EVENT_4.getEventId();
