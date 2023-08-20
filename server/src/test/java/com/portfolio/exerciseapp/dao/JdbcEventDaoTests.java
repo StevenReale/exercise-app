@@ -1,6 +1,7 @@
 package com.portfolio.exerciseapp.dao;
 
 import com.portfolio.exerciseapp.model.Event;
+import com.portfolio.exerciseapp.model.Workout;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,10 @@ public class JdbcEventDaoTests extends BaseDaoTests {
     private final int EXERCISE_1_ID = 1;
     private final int USER_1_ID = 101;
     private final LocalDate JULY_3 = LocalDate.parse("2023-07-03");
+
+    private List<Workout> WORKOUT_LIST_1;
+    private List<Workout> WORKOUT_LIST_2;
+    private List<Workout> WORKOUT_LIST_3;
 
     private Event EVENT_1;
     private Event EVENT_2;
@@ -35,15 +40,19 @@ public class JdbcEventDaoTests extends BaseDaoTests {
         workoutDAO = new JdbcWorkoutDAO(jdbcTemplate);
         jdbcEventDao = new JdbcEventDao(jdbcTemplate, workoutDAO);
 
-        EVENT_1 = new Event(1, USER_1_ID, workoutDAO.getWorkoutById(1), JULY_3);
-        EVENT_2 = new Event(2, USER_1_ID, workoutDAO.getWorkoutById(2), LocalDate.parse("2023-07-04"));
-        EVENT_3 = new Event(3, 102, workoutDAO.getWorkoutById(1), JULY_3);
-        EVENT_4 = new Event(4, 102, workoutDAO.getWorkoutById(3), JULY_3);
+        WORKOUT_LIST_1 = Arrays.asList(workoutDAO.getWorkoutById(1), workoutDAO.getWorkoutById(2));
+        WORKOUT_LIST_2 = Arrays.asList(workoutDAO.getWorkoutById(1), workoutDAO.getWorkoutById(3));
+        WORKOUT_LIST_3 = Arrays.asList(workoutDAO.getWorkoutById(2), workoutDAO.getWorkoutById(3));
+
+        EVENT_1 = new Event(1, USER_1_ID, WORKOUT_LIST_1, JULY_3);
+        EVENT_2 = new Event(2, USER_1_ID, WORKOUT_LIST_1, LocalDate.parse("2023-07-04"));
+        EVENT_3 = new Event(3, 102, WORKOUT_LIST_2, JULY_3);
+        EVENT_4 = new Event(4, 102, WORKOUT_LIST_3, JULY_3);
 
         ALL_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3, EVENT_4);
         USER_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2);
         JULY_3_EVENTS = Arrays.asList(EVENT_1, EVENT_3, EVENT_4);
-        EXERCISE_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3);
+        EXERCISE_1_EVENTS = Arrays.asList(EVENT_1, EVENT_2, EVENT_3, EVENT_4);
     }
 
     @Test
@@ -115,7 +124,7 @@ public class JdbcEventDaoTests extends BaseDaoTests {
         //Arrange
         Event createdEvent = new Event();
         createdEvent.setUserId(102);
-        createdEvent.setWorkout(workoutDAO.getWorkoutById(4));
+        createdEvent.setWorkouts(WORKOUT_LIST_1);
         createdEvent.setDate(LocalDate.parse("2023-07-05"));
 
         //Act
@@ -130,7 +139,7 @@ public class JdbcEventDaoTests extends BaseDaoTests {
     public void updated_event_reflected_in_database() {
         //Arrange
         EVENT_1.setUserId(102);
-        EVENT_1.setWorkout(workoutDAO.getWorkoutById(4));
+        EVENT_1.setWorkouts(WORKOUT_LIST_2);
         EVENT_1.setDate(LocalDate.parse("2023-07-05"));
 
         //Act
@@ -142,6 +151,7 @@ public class JdbcEventDaoTests extends BaseDaoTests {
         assertEventsMatch("event should be updated in database", EVENT_1, updatedEvent);
     }
 
+    @Test
     public void deleted_event_does_not_appear_in_database() {
         //Arrange
         int event4Id = EVENT_4.getEventId();
@@ -157,9 +167,16 @@ public class JdbcEventDaoTests extends BaseDaoTests {
     }
 
     private void assertEventsMatch(String message, Event expected, Event actual) {
+        List<Workout> expectedWorkouts = expected.getWorkouts();
+        List<Workout> actualWorkouts = actual.getWorkouts();
+        int expectedWorkoutsLength = expectedWorkouts.size();
+        int actualWorkoutsLength = actualWorkouts.size();
+
         Assert.assertEquals(message + ": ids should match", expected.getEventId(), actual.getEventId());
         Assert.assertEquals(message + ": users should match", expected.getUserId(), actual.getUserId());
-        Assert.assertEquals(message + ": workout ids should match", expected.getWorkout().getWorkoutId(), actual.getWorkout().getWorkoutId());
+        Assert.assertEquals(message + ": workout lists should match in length", expectedWorkoutsLength, actualWorkoutsLength);
+        Assert.assertEquals(message + ": workout ids for first workout should match", expectedWorkouts.get(0).getWorkoutId(), actualWorkouts.get(0).getWorkoutId());
+        Assert.assertEquals(message + ": workout ids for last workout should match", expectedWorkouts.get(expectedWorkoutsLength-1).getWorkoutId(), actualWorkouts.get(actualWorkoutsLength-1).getWorkoutId());
         Assert.assertEquals(message + ": dates should match", expected.getDate(), actual.getDate());
     }
 

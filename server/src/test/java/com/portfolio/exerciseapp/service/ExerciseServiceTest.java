@@ -35,8 +35,8 @@ public class ExerciseServiceTest {
     private final Workout WORKOUT_2 = new Workout(2, 1, 15, 15, 15, 15, 15.5);
     private final Workout WORKOUT_3 = new Workout(3, 2, 5, 5, 5, 5, 5.5);
 
-    private final Event EVENT_1 = new Event(1, 101, 1, LocalDate.parse("2023-07-04"));
-    private final Event EVENT_2 = new Event(2, 101, 2, LocalDate.parse("2023-07-04"));
+    private final Event EVENT_1 = new Event(1, 101, Arrays.asList(WORKOUT_1, WORKOUT_2), LocalDate.parse("2023-07-04"));
+    private final Event EVENT_2 = new Event(2, 101, Arrays.asList(WORKOUT_2, WORKOUT_3), LocalDate.parse("2023-07-04"));
 
     private final User USER_1 = new User(101, "user", "password", "first name", "last name", "ROLE_USER");
     private final User ADMIN_1 = new User(100, "user", "password", "first name", "last name", "ROLE_ADMIN");
