@@ -1,9 +1,8 @@
 <template>
   <div class="app">
-    <nav>
-      <app-header id="app-header" />
-      <main-nav id="nav-menu"></main-nav>
-    </nav>
+    
+    <AppHeader />
+    <MainNav />
     <router-view/>
   </div>
 </template>
@@ -17,9 +16,19 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
 .app {
   display: flex;
+
+  main {
+    flex: 1 1 0;
+    padding: 2rem;
+
+    @media (max-width: 1024px) {
+        padding-left: 6rem;
+    }
+  }
 }
 
 </style>
