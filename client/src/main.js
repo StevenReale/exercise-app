@@ -7,7 +7,7 @@ import 'boxicons'
 import '../public/css/global.css'
 
 Vue.config.productionTip = false
-axios.defaults.baseURL = process.env.VUE_APP_REMOTE_API
+axios.defaults.baseURL = process.env.VUE_APP_REMOTE_API;
 
 new Vue({
   router,
