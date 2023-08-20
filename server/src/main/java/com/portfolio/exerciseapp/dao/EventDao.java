@@ -16,7 +16,7 @@ public interface EventDao {
 
     public List<Event> getAllEventsByDate(LocalDate localDate);
 
-    //public List<Event> getAllEventsByExercise(int exerciseId);
+    public List<Event> getAllEventsByExercise(int exerciseId);
 
     public Event createEvent(Event event);
 

@@ -40,7 +40,7 @@ public class JdbcEventDao implements EventDao {
 
         List<Event> allEvents = new ArrayList<>();
         String sql = "SELECT event_id, user_id, workout_date " +
-                "FROM event;";
+                "FROM workout_event;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
         while(result.next()) {
             allEvents.add(mapRowToEvent(result));
@@ -80,21 +80,22 @@ public class JdbcEventDao implements EventDao {
         return eventsByDate;
     }
 
-//    @Override
-//    public List<Event> getAllEventsByExercise(int exerciseId) {
-//
-//        List<Event> eventsByExercise = new ArrayList<>();
-//        String sql = "SELECT e.event_id, e.user_id, e.workout_id, e.workout_date " +
-//                "FROM workout_event e " +
-//                "JOIN workout w USING (workout_id) " +
-//                "WHERE w.exercise_id = ?;";
-//        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, exerciseId);
-//        while(result.next()) {
-//            eventsByExercise.add(mapRowToEvent(result));
-//        }
-//
-//        return eventsByExercise;
-//    }
+    @Override
+    public List<Event> getAllEventsByExercise(int exerciseId) {
+
+        List<Event> eventsByExercise = new ArrayList<>();
+        String sql = "SELECT e.event_id, e.user_id, e.workout_date " +
+            "FROM event e " +
+            "JOIN workout_event we ON (e.event_id = we.event_id) " +
+            "JOIN workout w ON (we.workout_id = w.workout_id) " +
+            "WHERE w.exercise_id = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, exerciseId);
+        while(result.next()) {
+            eventsByExercise.add(mapRowToEvent(result));
+        }
+
+        return eventsByExercise;
+    }
 
     @Override
     public Event createEvent(Event event) {

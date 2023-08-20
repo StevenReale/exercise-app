@@ -35,14 +35,20 @@ CREATE TABLE workout (
 	CONSTRAINT fk_exercise_id FOREIGN KEY (exercise_id) REFERENCES exercise(exercise_id)
 );
 
-CREATE TABLE workout_event (
+CREATE TABLE event (
 	event_id serial NOT NULL,
 	user_id int NOT NULL,
-	workout_id int NOT NULL,
 	workout_date date NOT NULL,
 	CONSTRAINT pk_workout_event PRIMARY KEY (event_id),
-	CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user(user_id),
-	CONSTRAINT fk_workout_id FOREIGN KEY (workout_id) REFERENCES workout(workout_id)
+	CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES app_user(user_id)
+);
+
+CREATE TABLE workout_event (
+	event_id int NOT NULL,
+	workout_id int NOT NULL,
+	CONSTRAINT fk_event_id FOREIGN KEY (event_id) REFERENCES event(event_id),
+	CONSTRAINT fk_workout_id FOREIGN KEY (workout_id) REFERENCES workout(workout_id),
+	UNIQUE (event_id, workout_id)
 );
 
 CREATE TABLE workout_list (
@@ -74,11 +80,21 @@ INSERT INTO workout (exercise_id, num_sets, num_reps, weight, workout_time, dist
     		 (2, 1, 1, 1, 1, 200.6), --3
     		 (2, 3, 4, 5, 6, 7.8);   --4. For Integration Testing, do not add this workout to a workout_event or workout_list
 
-INSERT INTO workout_event (user_id, workout_id, workout_date)
-    VALUES  (101, 1, '2023-07-03'),   --1
-            (101, 2, '2023-07-04'),   --2
-            (102, 1, '2023-07-03'),   --3
-            (102, 3, '2023-07-03');   --4
+INSERT INTO event (user_id, workout_date)
+    VALUES  (101, '2023-07-03'),   --1
+            (101, '2023-07-04'),   --2
+            (102, '2023-07-03'),   --3
+            (102, '2023-07-03');   --4
+
+INSERT INTO workout_event (event_id, workout_id)
+    VALUES  (1, 1),
+            (1, 2),
+            (2, 1),
+            (2, 2),
+            (3, 1),
+            (3, 3),
+            (4, 2),
+            (4, 3);
 
 INSERT INTO workout_list (user_id, workout_id)
     VALUES  (101, 1),
