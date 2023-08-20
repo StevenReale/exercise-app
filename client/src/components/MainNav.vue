@@ -1,56 +1,119 @@
 <template>
-    <aside>
-        <h1>Sidebar</h1>
+    <aside :class="`${is_expanded && 'is-expanded'}`">
+        <div class="logo">
+            <img src="../assets/logo.png" alt="Vue">
+        </div>
+
+        <div class="menu-toggle-wrap">
+            <button class="menu-toggle" @click="ToggleMenu">
+                <span class="material-symbols-outlined">double_arrow
+                </span>
+            </button>
+        </div>
+
+        <h3>Menu</h3>
+        <div class="menu">
+            <router-link class="button" to="/">
+                <span class="material-symbols-outlined">menu_book</span>
+                <span class="text">Logbook</span>
+            </router-link>
+            <router-link class="button" to="/">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="text">Logout</span>
+            </router-link>
+            <router-link class="button" to="/">
+                <span class="material-symbols-outlined">person</span>
+                <span class="text">Account</span>
+            </router-link>
+            <router-link class="button" to="/">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="text">Settings</span>
+            </router-link>
+        </div>
     </aside>
-  <!-- <nav>
-    <div class="sidebar">
-        <div class="icon">
-            <box-icon class="menu-icon" name="menu"></box-icon>
-        </div>
-        <div class="sidebar-content">
-            <ul class="lists">
-                <li class="list">
-                    <a href="#" class="nav-link">
-                        <box-icon name='book-open' class="icons"></box-icon>
-                        <span class="link">Logbook</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-  </nav> -->
 </template>
 
-<script>
+<script setup>
 /* eslint-disable */
-export default {
+import { ref } from 'vue'
+import logoURL from '../assets/logo.png'
 
+const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
+
+const ToggleMenu = () => {
+	is_expanded.value = !is_expanded.value
+	localStorage.setItem("is_expanded", is_expanded.value)
 }
 </script>
 
-<style scoped>
-:root {
-    --primary: #9747FF;
-    --grey: #E6E4E4;
-    --dark-grey: #747474;
-    --black: #000000;
-    --light: #FFFFFF;
-    --sidebar-width: 300px;
-}
+<!-- <box-icon class="menu-icon" name="menu"></box-icon> -->
 
-button {
-    cursor: pointer;
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
-}
-
-.app {
+<style lang="scss" scoped>
+aside {
     display: flex;
+    flex-direction: column;
 
-    
+    background-color: var(--grey);
+    color: var(--light);
+    width: calc(2rem + 32px);
+    overflow: hidden;
+    min-height: 100vh;
+    padding: 1rem;
+
+    transition: 0.2s ease-out;
+
+    .menu-toggle-wrap {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 1rem;
+        position: relative;
+        top: 0;
+        transition: 0.2s ease-out;
+
+        .menu-toggle {
+            transition: 0.2s ease-out;
+
+            .material-symbols-outlined {
+                font-size: 2rem;
+                color: var(--light);
+                transition: 0.2s ease-out;
+            }
+
+            &:hover {
+				.material-symbols-outlined {
+					color: var(--primary);
+					transform: translateX(0.5rem);
+				}
+			}
+        }
+    }
+
+    &.is-expanded {
+        width: var(--sidebar-width);
+
+        .menu-toggle-wrap {
+            top: -3rem;
+
+            .menu-toggle {
+                transform: rotate(-180deg);
+            }
+        }
+    }
+
+    .logo {
+        margin-bottom: 1rem;
+
+        img {
+            width: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        position: fixed;
+        z-index: 99;
+    }
 }
+
 
 /* nav {
     padding: 0px;
