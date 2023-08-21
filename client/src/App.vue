@@ -29,8 +29,16 @@ export default {
     padding: 2rem;
     margin-top: 50px;
 
-    @media (max-width: 1024px) {
+    @media (min-width: 481px) {
         padding-left: 3rem;
+    }
+
+    @media (max-width: 768px) {
+        padding-left: 95px;
+    }
+
+    @media (max-width: 480px) {
+      padding-left: 95px;
     }
   }
 }

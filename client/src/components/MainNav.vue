@@ -13,15 +13,15 @@
 
         <h3>Menu</h3>
         <div class="menu">
-            <router-link class="button" to="/">
+            <router-link class="button" :to="{name: 'home'}">
                 <span class="material-symbols-outlined">menu_book</span>
                 <span class="text">Logbook</span>
             </router-link>
-            <router-link class="button" to="/about">
+            <router-link class="button" :to="{name: 'about'}">
                 <span class="material-symbols-outlined">info</span>
                 <span class="text">About</span>
             </router-link>
-            <router-link class="button" to="/contact">
+            <router-link class="button" :to="{name: 'contact'}">
                 <span class="material-symbols-outlined">mail</span>
                 <span class="text">Contact</span>
             </router-link>
@@ -30,9 +30,13 @@
         <div class="flex"></div>
 
         <div class="menu">
-            <router-link class="button" to="/logout">
+            <router-link class="button" :to="{name: 'logout'}" v-if="$store.state.token">
                 <span class="material-symbols-outlined">logout</span>
                 <span class="text">Logout</span>
+            </router-link>
+            <router-link class="button" :to="{name: 'login'}" v-else>
+                <span class="material-symbols-outlined">login</span>
+                <span class="text">Login</span>
             </router-link>
             <router-link class="button" to="/settings">
                 <span class="material-symbols-outlined">settings</span>
@@ -135,6 +139,7 @@ aside {
             .text {
                 color: var(--dark-grey);
                 transition: 0.2s ease-out;
+                font-size: 1rem;
             }
 
             &:hover {

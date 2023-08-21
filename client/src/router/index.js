@@ -6,6 +6,7 @@ import RegisterView from '../views/RegisterView.vue'
 import LogbookView from '../views/LogbookView.vue'
 import WorkoutView from '../views/WorkoutView.vue'
 import EventView from '../views/EventView.vue'
+import ContactView from '../views/ContactView.vue'
 import store from '../store/index'
 
 /* eslint-disable */
@@ -30,6 +31,11 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: ContactView
   },
   {
     path: '/login',
