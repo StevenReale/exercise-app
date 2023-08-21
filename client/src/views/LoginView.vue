@@ -24,7 +24,7 @@
           <div><button type="submit">Sign in</button></div>
         </div>
         <div class="signin">
-        Need an account? <router-link v-bind:to="{ name: 'register' }">Register!</router-link>
+        Need an account? <router-link v-bind:to="{ name: 'register' }">Register Here!</router-link>
         </div>
       </form>
     </div>
@@ -74,27 +74,25 @@ export default {
 
 form {
   display: flex;
-  margin-top: 60px;
   flex-direction: column;
   max-width: 350px;
-  padding-left: 20px;
   background-color: white;
   border-radius: 20px;
   gap: 10px;
 }
 
 form h1 {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: var(--primary);
   font-weight: 600;
   position: relative;
   display: flex;
   align-items: center;
-}
+} 
 
 .message, .signin {
   color: rgba(88, 87, 87, 0.822);
-  font-size: 14px;
+  font-size: 0.75rem;
 }
 
 .signin a {
@@ -113,10 +111,7 @@ input {
   border: 1px solid var(--grey);
   border-radius: 10px;
   font-family: Krona One;
-
-  text {
-    color: var(--primary);
-  }
+  font-size: .75rem;
 }
 
 button {
@@ -125,7 +120,7 @@ button {
   background-color: var(--primary);
   padding: 10px 30px;
   border-radius: 10px;
-  color: #fff;
+  color: var(--light);
   font-size: 0.75rem;
   transform: .3s ease;
   font-family: Krona One;

@@ -21,11 +21,6 @@ html, body {
     font-family: "Krona One", sans-serif;
 }
 
-.app {
-    display: flex;
-    font-family: "Krona One", sans-serif;
-}
-
 body {
     min-height: 100%;
 }

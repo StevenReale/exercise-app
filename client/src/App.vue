@@ -3,7 +3,9 @@
     
     <AppHeader />
     <MainNav />
-    <router-view/>
+    <main>
+      <router-view/>
+    </main>
   </div>
 </template>
 
@@ -20,13 +22,15 @@ export default {
 
 .app {
   display: flex;
+  font-family: "Krona One", sans-serif;
 
   main {
     flex: 1 1 0;
     padding: 2rem;
+    margin-top: 50px;
 
     @media (max-width: 1024px) {
-        padding-left: 6rem;
+        padding-left: 3rem;
     }
   }
 }

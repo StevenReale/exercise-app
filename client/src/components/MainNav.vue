@@ -1,7 +1,7 @@
 <template>
     <aside :class="`${is_expanded && 'is-expanded'}`">
         <div class="logo">
-            <img src="../assets/logo.png" alt="Vue">
+            <img src="../assets/logo-2.png" alt="Vue">
         </div>
 
         <div class="menu-toggle-wrap">
@@ -61,8 +61,9 @@ const ToggleMenu = () => {
 aside {
     display: flex;
     flex-direction: column;
+    z-index: 98;
 
-    background-color: var(--grey);
+    background-color: var(--black);
     color: var(--light);
     width: calc(2rem + 32px);
     overflow: hidden;
@@ -89,7 +90,7 @@ aside {
 
             .material-symbols-outlined {
                 font-size: 2rem;
-                color: var(--light);
+                color: var(--dark-grey);
                 transition: 0.2s ease-out;
             }
 
