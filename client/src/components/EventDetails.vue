@@ -10,11 +10,14 @@
                 <div class="each-workout">
                     <div class="exercise">{{ exerciseNames[workout.exerciseId] }}</div>
                     <div class="exercise-details">
-                    <div class="exercise-number">{{ workout.sets }} x {{ workout.reps }} @ {{ workout.weight }}</div>
-                </div>
+                      <div class="exercise-number">{{ workout.sets }} x {{ workout.reps }} @ {{ workout.weight }}</div>
+                    </div>
               </div>
             </div>
-        </div>
+          </div>
+      </article>
+      <article class="edit-card">
+        <workout-edit />
       </article>
     </div>
 </template>
@@ -22,7 +25,9 @@
 /* eslint-disable */
   import eventService from '../services/EventService';
   import exerciseService from '@/services/ExerciseService';
+  import WorkoutEdit from './WorkoutEdit.vue'
   export default {
+  components: { WorkoutEdit },
       name: 'event-details',
       data() {
           return {
@@ -110,6 +115,11 @@
 
   #action {
     color: var(--red);
+    font-size: 10px;
+  }
+
+  #date {
+    font-size: 10px;
   }
   
   .workout-details {
