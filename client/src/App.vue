@@ -2,7 +2,7 @@
   <div class="app">
     <AppHeader />
     <MainNav />
-    <main>
+    <main class="main-content">
       <router-view/>
     </main>
   </div>
@@ -13,7 +13,7 @@
 import AppHeader from './components/AppHeader.vue';
 import MainNav from './components/MainNav.vue';
 export default {
-  components: {AppHeader, MainNav}
+  components: {AppHeader, MainNav},
 }
 </script>
 
