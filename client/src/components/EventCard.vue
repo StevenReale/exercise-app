@@ -25,9 +25,7 @@
 /* eslint-disable */
   import eventService from '../services/EventService';
   import exerciseService from '@/services/ExerciseService';
-  import WorkoutEdit from './WorkoutEdit.vue'
   export default {
-  components: { WorkoutEdit },
       name: 'event-details',
       data() {
           return {

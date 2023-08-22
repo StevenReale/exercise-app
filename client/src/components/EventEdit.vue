@@ -1,29 +1,60 @@
 <template>
     <div>
-      <article class="workout-card">
+      <div class="date">{{ formatDate(event.date) }}</div>
+      <article class="workout-card" v-for="(workout, index) in event.workouts" :key="index">
           <div class="workout-header">
-              <input id="date">
+              <div class="exercise">{{ exerciseNames[workout.exerciseId] }}</div>
               <div id="action">Save</div>
           </div>
           <div class="workout-details">
-            <div v-for="(workout, index) in event.workouts" :key="index">
-                <div class="each-workout">
-                    <div class="exercise">{{ exerciseNames[workout.exerciseId] }}</div>
-                    <div class="exercise-details">
-                    <div class="exercise-number">{{ workout.sets }} x {{ workout.reps }} @ {{ workout.weight }}</div>
+            <div class="exercise-details">
+              <div class="exercise-number">
+                <template v-if="workout.reps !== 0">
+                <div class="input-area">
+                  <input class="number-input" id="sets" type="text" v-model="workout.sets" />
+                  <label for="sets">Sets</label>
                 </div>
+                <div class="symbol">X</div>
+                </template>
+                <template v-if="workout.reps !== 0">
+                  <div class="input-area">
+                    <input class="number-input" id="reps" type="text" v-model="workout.reps" />
+                    <label for="reps">Reps</label>
+                  </div>
+                  <div class="symbol">@</div> 
+                </template>
+                <template v-if="workout.weight !== 0">
+                  <div class="input-area">
+                    <input class="number-input weight" id="weight" type="text" v-model="workout.weight" />
+                    <label for="weight">Weight</label>
+                  </div>
+                </template>
+                <template v-if="workout.time !== 0">
+                  <div class="input-area">
+                    <input class="number-input" id="time" type="text" v-model="workout.time" />
+                    <label for="time">Time</label>
+                  </div>
+                </template>
+                <template v-if="workout.distance !== 0">
+                  <div class="input-area">
+                    <input class="number-input" id="distance" type="text" v-model="workout.distance" />
+                    <label for="distance">Distance</label>
+                  </div>
+                </template>
               </div>
             </div>
+          <div>
         </div>
-      </article>
-    </div>
+      </div>
+    </article>
+  </div>
 </template>
 <script>
 /* eslint-disable */
   import eventService from '../services/EventService';
   import exerciseService from '@/services/ExerciseService';
   export default {
-      name: 'event-details',
+      name: 'event-edit',
       data() {
           return {
               event: {
@@ -98,7 +129,7 @@
   .workout-card {
       display: flex;
       flex-direction: column;
-      width: 340px;
+      width: fit-content;
       border-radius: 10px;
       background: #202020;
       box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -106,15 +137,20 @@
       padding: 20px;
       font-size: 12px;
       gap: 10px;
+      margin-bottom: 10px;
   }
 
   #action {
     color: var(--red);
     font-size: 10px;
+    justify-content: flex-end;
   }
 
-  #date {
-    font-size: 10px;
+  .date {
+    font-size: 12px;
+    color: var(--dark-grey);
+    padding-bottom: 10px;
+    text-align: center;
   }
   
   .workout-details {
@@ -128,10 +164,46 @@
     display: flex;
     justify-content: space-between
   }
+
+  .exercise-number {
+    display: flex;
+    justify-content: space-evenly;
+  }
   
   .workout-header {
       display: flex;
       justify-content: space-between;
+  }
+
+  .input-area {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 8px;
+    color: var(--grey);
+  }
+  .number-input {
+    width: 50px;
+    height: 40px;
+    border-radius: 5px;
+    border-style: none;
+    font-size: 20px;
+    font-family: Krona One;
+    color: var(--dark-grey);
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .weight {
+    width: 80px;
+  }
+
+  .symbol {
+    margin: 10px 20px;
+    font-size: 14px;
   }
   
   </style>

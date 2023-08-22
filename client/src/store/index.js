@@ -21,7 +21,8 @@ if (currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    headerText: 'Default Header Text'
   },
   getters: {
   },
@@ -41,9 +42,15 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    UPDATE_HEADER_TEXT(state, newText) {
+      state.headerText = newText;
     }
   },
   actions: {
+    updateHeaderText({ commit }, newText) {
+      commit('UPDATE_HEADER_TEXT', newText);
+    }
   },
   modules: {
   }

@@ -1,27 +1,34 @@
 <template>
-    <div>
-      <h1>Workout Details</h1>
+    <div id="event-content">
       <div id="workout-details">
-        <EventDetails />
+        <EventEdit />
       </div>
     </div>
   </template>
   
   <script>
   /* eslint-disable */
-  import EventDetails from '../components/EventDetails.vue';
+  import EventEdit from '@/components/EventEdit.vue';
   
   export default {
     components: {
-      EventDetails
+        EventEdit
     }
   
   }
   </script>
   
   <style>
-  h1 {
-    font-size: 20px;
+  #event-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .header {
+    font-size: 16px;
+    padding-bottom: 10px;
+    text-align: center;
   }
   
   </style>

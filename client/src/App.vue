@@ -1,6 +1,5 @@
 <template>
   <div class="app">
-    
     <AppHeader />
     <MainNav />
     <main>
@@ -25,9 +24,12 @@ export default {
   font-family: "Krona One", sans-serif;
 
   main {
+    display: flex;
     flex: 1 1 0;
     padding: 2rem;
     margin-top: 50px;
+    justify-content: center;
+    align-items: flex-start;
 
     @media (min-width: 481px) {
         padding-left: 3rem;
