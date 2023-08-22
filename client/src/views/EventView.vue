@@ -1,7 +1,10 @@
 <template>
     <div id="event-content">
-      <div id="workout-details">
+      <div id="workout-details" v-if="$store.state.token">
         <EventEdit />
+      </div>
+      <div class="class" v-else>
+        <h1>Please sign in to view your workout information</h1>
       </div>
     </div>
   </template>
