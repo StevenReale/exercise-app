@@ -11,12 +11,14 @@
 - Create relevant API calls
 - Create Controllers in Spring Boot app to handle API requests
 - Restructured database to better handle workout events
+- Preliminary Vue.js front-end routes, components and styling
 
 ## In Progress
 - Rebuilding EventDao and EventServices tests
 - Expanding EventController API endpoints for full CRUD control
+- Building & styling Vue.js front end
 
 ## Next Steps
-- Create Vue.js front end
-- Style Vue.js front end
+- Continue creating necessary API endpoints
+- Integrate endpoints with Vue.js front end
 
