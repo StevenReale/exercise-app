@@ -22,3 +22,7 @@
 - Continue creating necessary API endpoints
 - Integrate endpoints with Vue.js front end
 
+## Preview of App
+![alt text](https://github.com/StevenReale/exercise-app/blob/2dcc0203de2c5d1a2c9e8fd861be1e7506a31f6b/client/src/assets/Screenshot%202023-08-22%20at%203.09.17%20PM.png)
+![alt text](https://github.com/StevenReale/exercise-app/blob/2dcc0203de2c5d1a2c9e8fd861be1e7506a31f6b/client/src/assets/Screenshot%202023-08-22%20at%203.08.16%20PM.png)
+![alt text](https://github.com/StevenReale/exercise-app/blob/2dcc0203de2c5d1a2c9e8fd861be1e7506a31f6b/client/src/assets/Screenshot%202023-08-22%20at%203.08.30%20PM.png)
