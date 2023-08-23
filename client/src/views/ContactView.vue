@@ -2,7 +2,7 @@
     <div id="login">
       <form>
         <h1>Contact Us</h1>
-        <p class="message">Questions about this app? Fill out the form below.</p>
+        <p class="message">Questions about this app?<br>Fill out the form below.</p>
         <div id="fields">
           <label for="email"></label>
           <input
@@ -18,7 +18,7 @@
             placeholder="Name"
           />
           <textarea name="query" id="query" cols="30" rows="10" placeholder="Get in touch"></textarea>
-          <div><button type="submit">Contact Us</button></div>
+          <div id="button-area"><button type="submit">Contact Us</button></div>
         </div>
       </form>
     </div>
@@ -33,6 +33,7 @@
 form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   max-width: 350px;
   background-color: white;
   border-radius: 20px;
@@ -46,11 +47,13 @@ form h1 {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
 } 
 
 .message, .signin {
   color: rgba(88, 87, 87, 0.822);
   font-size: 0.75rem;
+  text-align: center;
 }
 
 .signin a {
@@ -72,6 +75,11 @@ input, textarea {
   font-size: .75rem;
 }
 
+#button-area {
+  display: flex;
+  justify-content: center;
+}
+
 button {
   border: none;
   outline: none;
@@ -85,7 +93,7 @@ button {
 }
 
 button:hover {
-  background-color: var(--grey);
+  background-color: var(--dark-grey);
 }
 
 label {

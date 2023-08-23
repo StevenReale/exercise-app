@@ -6,6 +6,7 @@ import RegisterView from '../views/RegisterView.vue'
 import LogbookView from '../views/LogbookView.vue'
 import EventView from '../views/EventView.vue'
 import ContactView from '../views/ContactView.vue'
+import CalendarView from '../views/CalendarView.vue'
 import store from '../store/index'
 
 /* eslint-disable */
@@ -69,6 +70,11 @@ const routes = [
     path: '/events/:eventId',
     name: 'Event',
     component: EventView
+  },
+  {
+    path: '/calendar',
+    name: 'calendar',
+    component: CalendarView
   }
 ]
 

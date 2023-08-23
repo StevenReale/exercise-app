@@ -59,8 +59,6 @@ const ToggleMenu = () => {
 }
 </script>
 
-<!-- <box-icon class="menu-icon" name="menu"></box-icon> -->
-
 <style lang="scss" scoped>
 aside {
     display: flex;

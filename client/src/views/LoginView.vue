@@ -21,7 +21,7 @@
             v-model="user.password"
             required
           />
-          <div><button type="submit">Sign in</button></div>
+          <div class="button-area"><button type="submit">Sign in</button></div>
         </div>
         <div class="signin">
         Need an account? <router-link v-bind:to="{ name: 'register' }">Register Here!</router-link>
@@ -88,11 +88,13 @@ form h1 {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
 } 
 
 .message, .signin {
   color: rgba(88, 87, 87, 0.822);
   font-size: 0.75rem;
+  text-align: center;
 }
 
 .signin a {
@@ -112,6 +114,11 @@ input {
   border-radius: 10px;
   font-family: Krona One;
   font-size: .75rem;
+}
+
+.button-area {
+  display: flex;
+  justify-content: center;
 }
 
 button {

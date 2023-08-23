@@ -45,7 +45,7 @@
             required
           />
           <div></div>
-          <div>
+          <div class="button-area">
             <button type="submit">Create Account</button>
           </div>
         </div>
@@ -143,11 +143,16 @@
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   
   .message, .signin {
     color: rgba(88, 87, 87, 0.822);
     font-size: 0.75rem;
+  }
+
+  .signin {
+    
   }
   
   .signin a {
@@ -168,6 +173,11 @@
     font-family: Krona One;
     font-size: .75rem;
   }
+
+  .button-area {
+    display: flex;
+    justify-content: center;
+  }
   
   button {
     border: none;
@@ -182,7 +192,7 @@
   }
   
   button:hover {
-    background-color: var(--grey);
+    background-color: var(--dark-grey);
   }
   </style>
   
