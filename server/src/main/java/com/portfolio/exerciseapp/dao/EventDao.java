@@ -1,6 +1,7 @@
 package com.portfolio.exerciseapp.dao;
 
 import com.portfolio.exerciseapp.model.Event;
+import com.portfolio.exerciseapp.model.Workout;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -21,6 +22,8 @@ public interface EventDao {
     public Event createEvent(Event event);
 
     public boolean updateEvent(Event event);
+
+    public boolean addWorkoutToEvent(int eventId, int workoutId);
 
     public void deleteEvent(int id);
 }

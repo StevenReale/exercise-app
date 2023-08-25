@@ -59,7 +59,7 @@ public class JdbcExerciseDao implements ExerciseDAO {
     @Override
     public boolean updateExercise(Exercise exercise) {
         String sql = "UPDATE exercise " +
-                "SET exercise_name = ?" +
+                "SET exercise_name = ? " +
                 "WHERE exercise_id = ?;";
         return jdbcTemplate.update(sql, exercise.getName(), exercise.getExerciseId()) > 0;
     }

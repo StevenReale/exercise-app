@@ -141,6 +141,12 @@ public class JdbcEventDao implements EventDao {
     }
 
     @Override
+    public boolean addWorkoutToEvent(int eventId, int workoutId) {
+        String sql = "INSERT INTO workout_event (event_id, workout_id) VALUES (?,?);";
+        return jdbcTemplate.update(sql, eventId, workoutId) > 0;
+    }
+
+    @Override
     public void deleteEvent(int id) {
         String sql = "DELETE FROM workout_event WHERE event_id = ?;";
         jdbcTemplate.update(sql, id);
