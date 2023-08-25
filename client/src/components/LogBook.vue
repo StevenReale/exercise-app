@@ -1,11 +1,10 @@
 <template>
-  <div>
-    <h1>Workout Details</h1>
+  <div id="event-cards">
+    
   </div>
 </template>
 
 <script>
-/* eslint-disable */
 export default {
 
 }

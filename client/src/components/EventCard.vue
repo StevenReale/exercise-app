@@ -2,17 +2,22 @@
     <div>
       <article class="workout-card">
           <div class="workout-header">
-              <div id="date">{{ event.date }}</div>
-              <div id="action">Save</div>
+              <div id="date">{{ formatDate(event.date) }}</div>
+              <div id="action">Edit</div>
           </div>
           <div class="workout-details">
             <div v-for="(workout, index) in event.workouts" :key="index">
-              <div class="exercise">{{ exerciseNames[workout.exerciseId] }}</div>
-              <div class="exercise-details">
-                  <div class="exercise-number">{{ workout.sets }} x {{ workout.reps }} @ {{ workout.weight }}</div>
+                <div class="each-workout">
+                    <div class="exercise">{{ exerciseNames[workout.exerciseId] }}</div>
+                    <div class="exercise-details">
+                      <div class="exercise-number">{{ workout.sets }} x {{ workout.reps }} @ {{ workout.weight }}</div>
+                    </div>
               </div>
+            </div>
           </div>
-        </div>
+      </article>
+      <article class="edit-card">
+        <workout-edit />
       </article>
     </div>
 </template>
@@ -75,13 +80,27 @@
             });
         });
         },
+        formatDate(dateString) {
+            const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL','AUG','SEP','OCT','NOV','DEC'];
+            const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+            const date = new Date(dateString);
+            const weekday = daysOfWeek[date.getDay()];
+            const month = months[date.getMonth()];
+            const day = date.getDate();
+            const year = date.getFullYear();
+
+            const formattedDate = `${weekday}, ${month} ${day}, ${year}`;
+            return formattedDate;
+        }
     }
 }
 </script>
   
 <style scoped>
   .workout-card {
-      display: grid;
+      display: flex;
+      flex-direction: column;
       width: 340px;
       border-radius: 10px;
       background: #202020;
@@ -89,11 +108,28 @@
       color: white;
       padding: 20px;
       font-size: 12px;
+      gap: 10px;
+  }
+
+  #action {
+    color: var(--red);
+    font-size: 10px;
+  }
+
+  #date {
+    font-size: 10px;
   }
   
   .workout-details {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
+      gap: 5px;
+  }
+
+  .each-workout {
+    display: flex;
+    justify-content: space-between
   }
   
   .workout-header {

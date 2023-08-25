@@ -21,11 +21,10 @@
             v-model="user.password"
             required
           />
-          <div><button type="submit">Sign in</button></div>
+          <div class="button-area"><button type="submit">Sign in</button></div>
         </div>
-        <hr/>
         <div class="signin">
-        Need an account? <router-link v-bind:to="{ name: 'register' }">Register!</router-link>
+        Need an account? <router-link v-bind:to="{ name: 'register' }">Register Here!</router-link>
         </div>
       </form>
     </div>
@@ -71,39 +70,39 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 form {
   display: flex;
-  margin-top: 60px;
   flex-direction: column;
   max-width: 350px;
-  padding-left: 20px;
   background-color: white;
   border-radius: 20px;
+  gap: 10px;
 }
 
 form h1 {
-  font-size: 28px;
-  color: royalblue;
+  font-size: 1rem;
+  color: var(--primary);
   font-weight: 600;
-  letter-spacing: -1px;
   position: relative;
   display: flex;
   align-items: center;
-}
+  justify-content: center;
+} 
 
 .message, .signin {
   color: rgba(88, 87, 87, 0.822);
-  font-size: 14px;
+  font-size: 0.75rem;
+  text-align: center;
 }
 
 .signin a {
-  color: royalblue;
+  color: var(--primary);
 }
 
 .signin a:hover {
-  text-decoration: underline royalblue;
+  text-decoration: underline var(--primary);
 }
 
 input {
@@ -111,23 +110,31 @@ input {
   padding: 20px 10px 20px 10px;
   margin-bottom: 10px;
   outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
+  border: 1px solid var(--grey);
   border-radius: 10px;
+  font-family: Krona One;
+  font-size: .75rem;
+}
+
+.button-area {
+  display: flex;
+  justify-content: center;
 }
 
 button {
   border: none;
   outline: none;
-  background-color: royalblue;
+  background-color: var(--primary);
   padding: 10px 30px;
   border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
+  color: var(--light);
+  font-size: 0.75rem;
   transform: .3s ease;
+  font-family: Krona One;
 }
 
 button:hover {
-  background-color: rgb(56, 90, 194);
+  background-color: var(--grey);
 }
 
 label {

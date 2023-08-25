@@ -4,8 +4,9 @@ import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LogbookView from '../views/LogbookView.vue'
-import WorkoutView from '../views/WorkoutView.vue'
 import EventView from '../views/EventView.vue'
+import ContactView from '../views/ContactView.vue'
+import CalendarView from '../views/CalendarView.vue'
 import store from '../store/index'
 
 /* eslint-disable */
@@ -30,6 +31,11 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: ContactView
   },
   {
     path: '/login',
@@ -61,14 +67,14 @@ const routes = [
     redirect: {name: 'logbook'}
   },
   {
-    path: '/workouts/:workoutId',
-    name: 'Workout',
-    component: WorkoutView
-  },
-  {
     path: '/events/:eventId',
     name: 'Event',
     component: EventView
+  },
+  {
+    path: '/calendar',
+    name: 'calendar',
+    component: CalendarView
   }
 ]
 
@@ -88,6 +94,22 @@ router.beforeEach((to, from, next) => {
   } else {
     // Else let them go to their next destination
     next();
+  }
+
+  if (to.name === 'logbook') {
+    store.dispatch('updateHeaderText', 'My Logbook');
+  } else if (to.name === 'Event') {
+    store.dispatch('updateHeaderText', 'Edit Workout Details');
+  } else if (to.name === 'login') {
+    store.dispatch('updateHeaderText', 'Login');
+  } else if (to.name === 'register') {
+    store.dispatch('updateHeaderText', 'Register');
+  } else if (to.name === 'contact') {
+    store.dispatch('updateHeaderText', 'Contact');
+  } else if (to.name === 'about') {
+    store.dispatch('updateHeaderText', 'About');
+  } else if (to.name === 'home') {
+    store.dispatch('updateHeaderText', 'My Logbook');
   }
 });
 
