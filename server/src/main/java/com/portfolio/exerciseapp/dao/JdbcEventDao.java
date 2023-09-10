@@ -128,6 +128,7 @@ public class JdbcEventDao implements EventDao {
                 event.getEventId()
 
                 ) > 0;
+
         if (!updated) return false;
 
         sql = "DELETE FROM workout_event WHERE event_id = ?;";

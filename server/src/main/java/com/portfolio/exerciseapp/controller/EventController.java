@@ -95,13 +95,13 @@ public class EventController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteEvent(@RequestBody Event event, Principal principal) throws AuthenticationException {
+    @RequestMapping(path="/{eventId}", method = RequestMethod.DELETE)
+    public void deleteEvent(@PathVariable int eventId, Principal principal) throws AuthenticationException {
         User user = getUser(principal);
-        if (!user.getAuthorities().contains("admin") && user.getId() != event.getUserId()) {
+        if (!user.getAuthorities().contains("admin") && user.getId() != eventService.getEventById(eventId).getUserId()) {
             throw new AuthenticationException("Invalid Credentials.");
         } else {
-            eventService.deleteEvent(event.getEventId());
+            eventService.deleteEvent(eventId);
         }
     }
 
